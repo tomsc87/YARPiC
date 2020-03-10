@@ -2,8 +2,6 @@
 
 Just a small update. I've tweaked the edge_detection function for "dc_text" and made it default. It doubles render times for dc_text (when set to bevelled), but that comes out at 6 seconds (much better than the 38 seconds in the last update). Unfortunately, when bevel is set to "no", it comes out at 16 seconds for reasons that I don't fully understand because it's completely illogical (it's still better than 38 seconds). As a result, if your text doesn't extend beyond the edge of the case, I recommend rendering dc_text with bevel set to "yes", even if you don't have bevel enabled on the case.
 
-I'll leave the previous update (YARPiC_March_2020.zip) up for a while alongside this update (YARPiC_March_2020.2.zip).
-
 [UPDATE: 08/03/2020]
 
 Lots of changes in this update.

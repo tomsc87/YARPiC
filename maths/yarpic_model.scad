@@ -175,14 +175,19 @@ else{
     
        if(corners=="yes"){
     // Screw holes
-    translate([0,0,15]) linear_extrude(8.5) for(X=33*[-1,1], Y=46*[-1,1]) translate([X,Y,-1])  circle(d=4);
+    translate([0,0,15]) linear_extrude(8.5) for(X=33*[-1,1], Y=46*[-1,1]) translate([X,Y,-1])  circle(d=3.4);
             // Screw holes
-    translate([0,0,23.5+layer_height]) linear_extrude(6) for(X=33*[-1,1], Y=46*[-1,1]) translate([X,Y,-1])  circle(d=4);
-        
-    // Nut space
+    translate([0,0,23.5+(layer_height*4)]) linear_extrude(6) for(X=33*[-1,1], Y=46*[-1,1]) translate([X,Y,-1])  circle(d=3.4);
+        for(X=33*[-1,1], Y=46*[-1,1]){    
+translate([X,Y,23.5]){
+    linear_extrude(layer_height*2) square ([4,6.2], center =true);
+    linear_extrude(layer_height*4) square([4,4], center=true);
+}
+    // Nut housing
     translate([0,0,20]) linear_extrude(3.5) for(X=36.75*[-1,1], Y=46*[-1,1]) translate([X,Y]) square([4.5,6], center=true);
             translate([0,0,20]) linear_extrude(3.5) for(X=33*[-1,1], Y=46*[-1,1]) translate([X,Y]) circle(d=6.95, $fn=6);
     }
+}
     else{}
 
     }

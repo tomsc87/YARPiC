@@ -186,8 +186,8 @@ translate([X,Y,23.5]){
     // Nut housing
     translate([0,0,20]) linear_extrude(3.5) for(X=36.75*[-1,1], Y=46*[-1,1]) translate([X,Y]) square([4.5,6], center=true);
             translate([0,0,20]) linear_extrude(3.5) for(X=33*[-1,1], Y=46*[-1,1]) translate([X,Y]) circle(d=6.95, $fn=6);
-    }
-}
+            }
+        }
     else{}
 
     }

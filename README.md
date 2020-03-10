@@ -1,1 +1,194 @@
-#YARPiC
+[UPDATE: 09/03/2020]
+
+Just a small update. I've tweaked the edge_detection function for "dc_text" and made it default. It doubles render times for dc_text (when set to bevelled), but that comes out at 6 seconds (much better than the 38 seconds in the last update). Unfortunately, when bevel is set to "no", it comes out at 16 seconds for reasons that I don't fully understand because it's completely illogical (it's still better than 38 seconds). As a result, if your text doesn't extend beyond the edge of the case, I recommend rendering dc_text with bevel set to "yes", even if you don't have bevel enabled on the case.
+
+I'll leave the previous update (YARPiC_March_2020.zip) up for a while alongside this update (YARPiC_March_2020.2.zip).
+
+[UPDATE: 08/03/2020]
+
+Lots of changes in this update.
+
+<ul>
+<li>Bevelled side cutout (power, HDMI, audio) to make printing easier.</li>
+<li>Larger micro HDMI cutouts for Pi 4.</li>
+<li>Option to remove access to SD card (suggested by @<a href="https://www.thingiverse.com/mikegi/about" target="_blank">mikegi</a>).</li>
+<li>Moved corner nut housing up a bit (M3*16 bolts can be used instead of M3*20), made slightly wider (so nuts fit in better), and added a hexagon (so it holds nuts in place better).</li>
+<li>Added supports for corner nut housing roof (can easily be removed in post processing with side cutters or a craft knife).</li>
+<li>Added a full layer above corner nut housing as support for screw hole (can easily be removed in post processing with a drill, file, or even just a screw if you're lazy (like me)). (Can be adjusted for different layer heights.)</li>
+<li>New embedded screw holes on top of case with corners set to "yes". (I.e. no more need for supports.)</li>
+<li>screw_hole variable now sets the screw hole size for the stand offs when corners is set to "yes". (Was overlooked before because I never print with corners any more.)</li>
+<li>Dual colour text edge detection. Now the text can extend beyond the edge of the case and dc_text will conform to it. (<strike>Must be set manually because it drastically increases render times.</strike>)</li>
+</li>Minor code refinements to help reduce render times.</li>
+</ul>
+
+I think that's all the changes in this update.
+
+Again, Thingiverse isn't giving out the correct file in the main download, so go to Thing Files and download YARPiC_March_2020.zip to get the most recent version.
+
+[ORIGINAL]
+
+I couldn't find a Raspberry Pi case that I liked or that met my needs, so I made one myself.
+
+My basic requirements were:
+<ul>
+<li>Could house an Asus Tinker Board with stock heatsink</li>
+<li>Could house a 40*40*10 fan as well</li>
+<li>Used nuts and bolts (since clip together cases always break)</li>
+<li>Not too thin and flexible (too many cases on here have, like, 0.5mm thick surfaces, which is just too flexible)</li>
+<li>Could fit my chunky Amazon Basic USBs</li>
+<li>Didn't look like it was trying to be a retro console (the most important thing)</li>
+</ul>
+
+After a couple of hours in OpenSCAD and a few prototypes later, I give you YARPiC.
+
+To properly use it, you will need:
+<ul>
+<li> 4 x M3*16 bolts (for the fan)</li>
+<li> 4 x M3*20 bolts (for the lid)</li>
+<li> 8 x M3 nuts (for the fan and lid)</li>
+<li> 4 x M2.5*5 screws (for the board)</li>
+<li> 1 x Raspberry Pi (1 B+, 2 B, 3 B, 3 B+) or Tinker Board (or any SBC with the same form factor)</li>
+<li> 1 x 40*40*10mm fan (ideally 5V; I went for the Noctua one)</li>
+</ul>
+
+Tree supports in Cura are awesome, but they're not perfect, so you might need to tidy up the nut housing; I used a craft knife, small circular file, and a pair of tweezers to get it looking nice.
+
+[UPDATE: 15/03/2019]
+
+I've included a customizable OpenSCAD file, so you can customize YARPiC to your needs.
+
+What you can now do:
+<ul>
+<li>Change fan size.</li>
+<li>Add slot for GPIO.</li>
+<li>Bevel the edges.</li>
+<li>Add exhaust slots.</li>
+<li>Add embedded text.</li>
+<li>Add dual colour text.</li>
+<li>Change wall size.</li>
+<li>Render bottom, top, and text separately.</li>
+</ul>
+
+If you have any questions, complaints, or suggestions, feel free to leave a comment.
+
+[UPDATE: 19/03/2019]
+
+I wanted to mount this case to my printer because I wasn't happy with the case I had. As a result, I had to find a way to add a V-slot rail to it, which meant I had to get rid of the corner screws and find another way to fix the lid in place. Thus, I give you "YARPiC No Corners". This is the intermediary stage (without the V-slot rail), and a preview of things to come.
+
+What you'll need:
+<ul>
+<li>4 x M3*16 bolts (for the fan)</li>
+<li>4 x M3 nuts (for the fan)</li>
+<li>4 x M2.5*8 screws</li>
+<li>Raspberry Pi</li>
+<li>40*40*10mm 5V fan</li>
+</ul>
+
+Again, you will need to slice with supports (ideally tree supports in Cura) so that the embedded screw holes don't collapse when printing.
+
+In the coming days, I will add the alterations to the customizer so you can add text, change fan size, add V-slot rail etc.
+
+[UPDATE: 23/03/2019]
+
+As promised, here's the updated version of the YARPiC customizer so you can make YARPiC without the corner screw holes.
+
+Here's what's new:
+<ul>
+<li>Option to remove the corner screw holes and add through-board screws for the top.</li>
+<li>Add V-slot mounting rail for 3D printers that use 2020, 2040, 4040 extrusion. (NOTE: V-slot cannot be used with corners.)</li>
+<li>Up to two lines of text.</li>
+</ul>
+
+Bug fixes:
+<ul>
+<li>Fixed bevelled edge with GPIO set to "yes".</li>
+</ul>
+
+As always, I hope you enjoy, and look forward to seeing your creations. If you have any questions, suggestions, or complaints, leave a comment. 
+[UPDATE: 04/04/2019]
+
+Did someone say "VESA mounts"? Okay, no one said "VESA mounts", but I decided to add them anyway.
+
+Updates:
+<ul>
+<li>VESA mounts.</li>
+</ul>
+
+As always, if you have any complaints, comments, or suggestions, leave them in the comments.
+
+[UPDATE: 02/04/2019]
+
+Bug fix:
+<ul>
+<li>Increased the size of screw holes from 2.6mm to 3mm to reduce stress on (and subsequent breakage of) the top when "corners" is set to "No".</li>
+<li>Fixed screw towers going through text on lid.</li>
+</ul>
+
+[UPDATE: 25/06/2019]
+
+Added support for the new Raspberry Pi 4 Model B. This is untested. While I do have my Pi 4, all my printers are out of action at the moment. As a result, feedback would be greatly appreciated.
+
+[UPDATE: 22/08/2019]
+
+My main printer is working again, so I've been able to work on this again.
+
+Change log:
+<ul>
+<li>Modified fan grill to decrease render time (by up to ~43%) and increase airflow (~6.5% better cooling)</li>
+<li>Smaller power port when Pi4 is set to "No"</li>
+<li>Deeper screw holes on the bottom </li>
+<li>Modified top mounts to make them stronger</li>
+<li>Added screw hole test</li>
+</ul>
+
+Things I still have to do:
+<ul>
+<li><strike>Rewrite the entirety of the top of the case because the code is a mess and drastically increases render times.</strike></li>
+</ul>
+
+[UPDATE: 25/08/2019]
+
+I notices there was a problem with the standoffs breaking (caused by the deeper screw holes bug fix in the last update), so this is a quick bug fix for that.
+
+Changes:
+<ul>
+<li>Changed diameter of standoffs from 6mm to 8mm to stop breakage. (Untested, but should work)</li>
+</ul>
+
+[UPDATE: 06/09/2019]
+
+Right, I've done a massive overhaul. Here are the changes:
+
+<ul>
+<li>Removed the reliance on the third-party bevel library for the bevelled edge option</li>
+<li>Fewer, larger cooling slots on the back to increase airflow slightly</li>
+<li>Embedded screw holes that no longer need supports</li>
+<li>Added cutout for easier insertion and removal of Pi4</li>
+</ul>
+
+I think that's all the changes. As always, feedback would be much appreciated.
+
+[UPDATE: 18/09/2019]
+
+I finally installed OpenSCAD 2019.05 and discovered the amazing Customizer in there, so I've made yarpic_customizer.scad compatible with that. I think it makes my code more of a mess, but it makes it easier to use with the built-in Customizer. And, with it, I've included a .json file with some pre-configured YARPiCs (including the one I use to test render times).
+
+Speaking of render times, I've also tidied up the code in the maths/yarpic_model.scad file (removing redundant code that got added over time), resulting in ~38% faster render times (compared with the first Raspberry Pi 4 revision).
+
+Also, I noticed a bug where the fan mesh stuck out the side of the case when "gpio" and "fan" were set to "yes", so I made the mesh smaller. Because of this, I didn't include an option for 50mm fan in the Customizer (although, you can add it manually), so the smaller mesh shouldn't be a problem (not that you can fit a 50mm fan in the case with "gpio" set to "yes" anyway (I'm not even sure a 50mm fan will fit in the case without "gpio" set to "yes" because I haven't tried it)).
+
+Finally, I've made it so you cannot render the "screwtest" or "dc_text" with the case itself. Obviously, rendering "dc_text" with the case would defeat the purpose of having text (because it would fill in the text in the .stl). And the "screwtest" only takes 15 minutes to print and should be printed (and the "screw_hole" variable set correctly) before you print the case anyway.
+
+Well, I think that's all the changes in this (hopefully final) revision.
+
+If you notice any bugs, let me know in the comments section.
+
+[UPDATE: 13/02/2020]
+
+Just a small update with two changes:
+
+<ul>
+<li>Changed the V/T-slot. It now requires two M3 T-nuts and two M3x8 bolts. This makes it a lot stronger.</li>
+<li>Reduced the default fragment number ($fn) from 50 to 24. It doesn't reduce detail too much, but halves the render time, so it's a worthy trade off. Of course, you can still set it whatever you like in the customizer.</li>
+</ul>
+
+Thingiverse is still giving out the 18th September 2019 update when you click "download all files", so, for the time being, go over to the "thing files" tab and download the "yarpic_customizer_2020.zip" file from there.

@@ -1,7 +1,3 @@
-// My printer sucks. Horizontal expansion is off the charts. If I reduce it too much in my slicer settings, it won't print the supports for the nut housing roof. As a result, I need to increase the width of the screw holes beyond the norm. Looking over code for the Original Prusa I3 MK3, it uses 3.3mm diameter for M3 screws, but my printer can't even handle 3.4mm (with -0.1mm horizontal expansion) without the screws being too tight.
-// I think 3.6mm diameter is about as low as my printer can go. 
-
-
 // This sets the height of the screw hole support and the screw hole itself. It'll add two layers of the first support, and two layers for the second support before the screw hole itself.
 layer_height=0.2;
 

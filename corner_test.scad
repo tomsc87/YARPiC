@@ -8,14 +8,14 @@ difference(){
     translate([0,0,0]) linear_extrude(27-15)  translate([X,Y,-1])  circle(d=11);
     }
         // Screw holes
-    translate([0,0,15-15]) linear_extrude(8.5)  translate([X,Y,-1])  circle(d=3.4);
+    translate([0,0,15-15]) linear_extrude(8.5)  translate([X,Y,-1])  circle(d=4);
             // Screw holes
-    translate([0,0,23.5+(layer_height*4)-15]) linear_extrude(6)  translate([X,Y,0])  circle(d=3.4);
+    translate([0,0,23.5+(layer_height*4)-15]) linear_extrude(6)  translate([X,Y,0])  circle(d=4);
 
 // This is the new support for the screw hole. I might do something similar with the other screw holes where I've used cones/cylinders in the past.
 translate([X,Y,23.5-15]){
-    linear_extrude(layer_height*2) square([3.4,6.2], center =true);
-    linear_extrude(layer_height*4) square([3.4,3.4], center=true);
+    linear_extrude(layer_height*2) square([4,6.2], center =true);
+    linear_extrude(layer_height*4) square([4,4], center=true);
 }        
     // Nut housing
     translate([0,0,20-15]) linear_extrude(3.5) for(X=13.75*[-1,1], Y=10*[-1,1]) translate([X,Y]) square([4.5,6], center=true);

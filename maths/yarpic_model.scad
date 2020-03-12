@@ -43,7 +43,7 @@ dc_text();
 else {}
 
 if((vesa=="yes")&&(part=="both"||part=="bottom")){
-        if((rail=="yes")&&(corners=="yes"||vesa=="yes")||((dc_text=="yes"))||(screwtest=="Yes"||screwtest=="yes")){}
+        if((rail=="yes")&&(corners=="yes"||vesa=="yes")||((dc_text=="yes"))||(screwtest=="yes")){}
         else{
 vesa();
         }
@@ -412,8 +412,8 @@ difference(){
    }
 }   
 }
-        if(add_text=="Yes"||add_text=="yes"){
-        if(flip_text=="Yes"||flip_text=="yes"){
+        if(add_text=="yes"){
+        if(flip_text=="yes"){
         if(line2==""){
         translate([0,-30,1]) rotate([0,180,180]){ linear_extrude(2) text(line1, text_size, font, halign="center", valign="center");
     }

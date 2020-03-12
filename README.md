@@ -1,7 +1,9 @@
 [UPDATE: 12/03/2020]
 
+Another small update. Might be ready to merge into the master branch.
+
 <ul>
-  <li>Redesigned nut trap.</li>
+  <li>Redesigned nut trap for corners.</li>
   <li>Fixed corner inpinging on front cutout for Pi4.</li>
 </ul>
 

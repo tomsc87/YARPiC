@@ -86,13 +86,6 @@ module bottom(){
                                         }
                                     }
                                     else {}
-                                       if(corners=="yes"){
-    // Corners
-    translate([0,0,0]) linear_extrude(27) for(X=33*[-1,1], Y=46*[-1,1]) translate([X,Y,-1])  circle(d=11);
-    }
-
-else{
-    }
                                 }
                                 
         // Rear holes for airflow
@@ -123,8 +116,6 @@ else{
     }
     // audio port
     translate([-28,-11.4,6.2]) linear_extrude(6.8) square([16,6.8], center=true);
-    // Front cutout
-    translate([-0.5,-(88)/2,6.5]) linear_extrude(20) square([55,3], center=true);
     // Side cutout
     translate([-35.75,11,6]){
        minkowski(){ linear_extrude(8.5) square([4,55], center=true);
@@ -156,7 +147,19 @@ else {
    }
 }
    }
+          if(corners=="yes"){
+    // Corners
+    translate([0,0,0]) linear_extrude(27) for(X=33*[-1,1], Y=46*[-1,1]) translate([X,Y,-1])  circle(d=11);
     }
+
+else{
+    }
+    }
+    if(pi4=="yes"){
+            // Front cutout
+    translate([-0.5,-(88)/2,6.5]) linear_extrude(20) square([55,3], center=true);
+    }
+    else{}
         // Hollow out for lid
     translate([0,0,25.25]) linear_extrude(10) offset(3) offset(-3) square([62,91], center=true);
 

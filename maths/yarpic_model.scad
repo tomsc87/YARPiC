@@ -182,16 +182,6 @@ else{
             translate([X,Y,15]) cylinder(d1=3.6,d2=3.6+1.6,h=5);
     // Screw holes
     translate([X,Y,15-1]) linear_extrude(20) circle(d=3.6);
-//            // Screw holes
-//    translate([0,0,23.5+(layer_height*4)]) linear_extrude(6) for(X=33*[-1,1], Y=46*[-1,1]) translate([X,Y,-1])  circle(d=3.4);
-//        for(X=33*[-1,1], Y=46*[-1,1]){    
-//translate([X,Y,23.5]){
-//    linear_extrude(layer_height*2) square ([4,6.2], center =true);
-//    linear_extrude(layer_height*4) square([4,4], center=true);
-//}
-//    // Nut housing
-//    translate([0,0,20]) linear_extrude(3.5) for(X=36.75*[-1,1], Y=46*[-1,1]) translate([X,Y]) square([4.5,6], center=true);
-//            translate([0,0,20]) linear_extrude(3.5) for(X=33*[-1,1], Y=46*[-1,1]) translate([X,Y]) circle(d=6.95, $fn=6);
             
             // New nut trap
         translate([33,Y,17.5]) nut_trap();
@@ -243,32 +233,6 @@ else{
     translate([0,43.5,3]) linear_extrude(4.5) square([15,3.5], center=true);
 }
 }
-//if(corners=="yes"){
-//for(Y=46*[-1,1]) translate([-32.5,Y,20]){
-//    for (r=150){
-//        rotate([0,0,r]){
-//pathRadius=5.5;
-//num=3;
-//for (i=[1:num]){
-//	translate([pathRadius*cos(i*(45/num)),pathRadius*sin(i*(45/num)),0]) linear_extrude(3.5) circle(d=0.8);
-//}
-//}
-//}
-//}
-//
-//for(Y=46*[-1,1]) translate([32.5,Y,20]){
-//    for (r=330){
-//        rotate([0,0,r]){
-//pathRadius=5.5;
-//num=3;
-//for (i=[1:num]){
-//	translate([pathRadius*cos(i*(45/num)),pathRadius*sin(i*(45/num)),0]) linear_extrude(3.5) circle(d=0.8);
-//}
-//}
-//}
-//}
-//}
-//else{}
 }
 }
 module top(){
@@ -321,10 +285,10 @@ difference(){
     }
        if(corners=="yes"){
     // Corner screw holes
-    translate([0,0,0]) linear_extrude(9) for(X=33*[-1,1], Y=46*[-1,1]) translate([X,Y,-1])  circle(d=4);
+    translate([0,0,0]) linear_extrude(9) for(X=33*[-1,1], Y=46*[-1,1]) translate([X,Y,-1])  circle(d=3.6);
         
     // Corner screw embeds
-        translate([0,0,0]) for(X=33*[-1,1], Y=46*[-1,1]) translate([X,Y,0])  cylinder(d1=7,d2=4,h=3);
+        translate([0,0,0]) for(X=33*[-1,1], Y=46*[-1,1]) translate([X,Y,0])  cylinder(d1=7,d2=3.6,h=3);
     }
     else{
         }
@@ -478,12 +442,12 @@ else {
 if(fan=="yes"){
             if(gpio=="yes"){
         // Fan screw embeds
-    translate([4,10,-0.25]) for(X=fan_holes*[-1,1], Y=fan_holes*[-1,1]) translate([X,Y,-1])  cylinder(d1=8, d2=4, h=3.5);
+    translate([4,10,-0.25]) for(X=fan_holes*[-1,1], Y=fan_holes*[-1,1]) translate([X,Y,-1])  cylinder(d1=8, d2=3.6, h=3.5);
     }
 else {
 
         // Fan screw embeds
-    translate([0,10,-0.25]) for(X=fan_holes*[-1,1], Y=fan_holes*[-1,1]) translate([X,Y,-1])  cylinder(d1=8, d2=4, h=3.5);
+    translate([0,10,-0.25]) for(X=fan_holes*[-1,1], Y=fan_holes*[-1,1]) translate([X,Y,-1])  cylinder(d1=8, d2=3.6, h=3.5);
     }
 }
 }

@@ -1,6 +1,6 @@
 [UPDATE: 12/03/2020]
 
-Another small update. Might be ready to merge into the master branch.
+Another small update.
 
 <ul>
   <li>Redesigned nut trap for corners.</li>

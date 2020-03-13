@@ -25,7 +25,7 @@ Lots of changes in this update.
 <li>New embedded screw holes on top of case with corners set to "yes". (I.e. no more need for supports.)</li>
 <li>screw_hole variable now sets the screw hole size for the stand offs when corners is set to "yes". (Was overlooked before because I never print with corners any more.)</li>
 <li>Dual colour text edge detection. Now the text can extend beyond the edge of the case and dc_text will conform to it. (<strike>Must be set manually because it drastically increases render times.</strike>)</li>
-</li>Minor code refinements to help reduce render times.</li>
+<li>Minor code refinements to help reduce render times.</li>
 </ul>
 
 I think that's all the changes in this update.

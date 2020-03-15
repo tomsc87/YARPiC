@@ -4,15 +4,27 @@
 
 include<maths/yarpic_model.scad>
 
-corners="yes";
-layer_height=0.2;
 
+/*[Main]*/
 $fn=24;
 
-test="no"; //[yes:Yes,no:No]
+// Pretty self-explanatory.
 bevel="yes"; //[yes:Yes,no:No]
+
+// There's some dispute about the radius of the curve on the touchscreen. This is so I can easilly change all instances throughout the file.
 curve=6.5;
+
+/*[Tests]*/
+
+// This was so I could render and print just one corner to test the fit.
+test="no"; //[yes:Yes,no:No]
+
+// This will give you a complete render, including a YARPiC with the variables set below.
 test_fit="no"; //[yes:Yes,no:No]
+
+// From here on down, it's some standard YARPiC variables that have no impoact on the look of the touchscreen.
+corners="yes";
+layer_height=0.2;
 fan="yes";
 fan_size=40;
 line1="Screen";
@@ -65,7 +77,7 @@ else{}
 }
 
 if(test_fit=="yes"){
-    translate([0,0,50])rotate([0,110,0]){
+    translate([0,0,52.4])rotate([0,108,90]){
     difference(){
         union(){
         translate([-(50-5.2),-5,0]) bottom();

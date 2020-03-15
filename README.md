@@ -1,3 +1,15 @@
+[UPDATE 15/03/2020]
+
+In the very early stages of making YARPiC compatible with the Official Raspberry Pi 7" Touchscreen.
+
+What's included:
+<ul>
+<li>touchscreen.scad is the working file for this project. All code will be merged back into maths/yarpic_model.scad when complete.</li>
+<li>touchscreen_concept.stl is an unprintable representation of what I want touchscreen compatibility to look like.</li>
+</ul>
+
+Again, this is in the very early stages, and things will change. I might even scrap the idea entirely if it proves too difficult to get it working.
+
 [UPDATE: 12/03/2020]
 
 Another small update. Might be ready to merge into the master branch.

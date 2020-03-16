@@ -24,12 +24,14 @@ test_fit="no"; //[yes:Yes,no:No]
 
 // From here on down, it's some standard YARPiC variables that have no impoact on the look of the touchscreen.
 corners="yes";
+cooling_slots="yes";
 layer_height=0.2;
 fan="yes";
 fan_size=40;
 line1="Screen";
 line2="Test";
 add_text="yes";
+pi4="no";
 
 module screen(){
 difference(){
@@ -80,18 +82,29 @@ if(test_fit=="yes"){
     translate([0,0,52.4])rotate([0,108,90]){
     difference(){
         union(){
-        translate([-(50-5.2),-5,0]) bottom();
+            difference(){
+        translate([5.2,-5,0]){
+            bottom();
+        }
+    }
+            
     for(r=27.646*[-1,1]){
             rotate([0,0,r]) linear_extrude(2.3) offset(10.25) offset(-10.24) square([20.5,160], center=true);
         }
-        rotate([0,180,0]) translate([50-5.2,-5,-(27+8+0.2)]) top();
+        rotate([0,180,0]) translate([-5.2,-5,-(27+8+0.2)]) top();
+            rotate([180,0,90]) screen();
+
         }
-        translate([5.2,-5,-1]) linear_extrude(10) offset(3) offset(-3) square([59.5,88.5], center=true);
+        // Power port
+            translate([5.2,-5,0]) translate([-28,31.9,6.3-12]) linear_extrude(4) square([15,10], center=true);
+        // Ribon cable
+        translate([5.2,41-5,0]) linear_extrude(25.25) square([25,10], center=true);
+        // Bottom cut-out
+        translate([5.2,-5,-1]) linear_extrude(10) offset(3) offset(-3) square([59.4,88.4], center=true);
         // Screw holes
 for(X=(126.2/2)*[1,-1], Y=(65.65/2)*[1,-1])
     rotate([0,0,90]) translate([0,-1.1,0]) translate([X,Y,0]) linear_extrude(5) circle(d=3.4);
     }
-    rotate([180,0,90]) screen();
 }
 }
 else{

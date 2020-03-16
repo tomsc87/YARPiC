@@ -18,7 +18,7 @@ else{}
         }
 else{}
 
-if(part=="both"||part=="bottom"){
+if(part=="bottom"){
         if((rail=="yes")&&(corners=="yes"||vesa=="yes")||(dc_text=="yes")||(screwtest=="yes")){}
         else{
 bottom();
@@ -26,13 +26,26 @@ bottom();
 }
 else {}
 
-if(part=="both"||part=="top"){
+if(part=="top"){
         if((rail=="yes")&&(corners=="yes"||vesa=="yes")||(dc_text=="yes")||(screwtest=="yes")){}
         else{
 top();
         }
 }
 else {}
+
+if(part=="both"){
+    if((rail=="yes")&&(corners=="yes"||vesa=="yes")||(dc_text=="yes")||(screwtest=="yes")){}
+    else{
+    translate([-50,0,0]) top();
+    translate([50,0,0]) bottom();
+        if(vesa=="yes"){
+            translate([50,0,0]) vesa();
+        }
+        else{}
+}
+}
+else{}
 
 if(dc_text=="yes"){
     if(screwtest=="yes"){}
@@ -42,13 +55,13 @@ dc_text();
     }
 else {}
 
-if((vesa=="yes")&&(part=="both"||part=="bottom")){
-        if((rail=="yes")&&(corners=="yes"||vesa=="yes")||((dc_text=="yes"))||(screwtest=="yes")){}
-        else{
-vesa();
-        }
-}
-else {}
+//if((vesa=="yes")&&(part=="both"||part=="bottom")){
+//        if((rail=="yes")&&(corners=="yes"||vesa=="yes")||((dc_text=="yes"))||(screwtest=="yes")){}
+//        else{
+//vesa();
+//        }
+//}
+//else {}
 
 if(screwtest=="yes"){
     
@@ -57,7 +70,6 @@ screwtest();
 else {}
 
 module bottom(){
-    translate ([50,0,0]){
         difference(){
             union(){
                 difference(){
@@ -234,11 +246,10 @@ else{
 }
 }
 }
-}
+
 module top(){
 fan_holes=((fan_size/100)*80)/2;
 fan_hole=(fan_size/100)*95;
-    translate ([-50,0,0]){
         difference(){
             union(){
 difference(){
@@ -452,12 +463,10 @@ else {
 }
 }
 }
-}
+
 module dc_text(){
-    translate([-50,0,0]){
             intersection(){
     color("Teal", 1){
-        if(add_text=="yes"){
         if(flip_text=="yes"){
         if(line2==""){
         translate([0,-30,1]) rotate([0,180,180]){ linear_extrude(1) text(line1, text_size, font, halign="center", valign="center");
@@ -484,7 +493,6 @@ else {
 }
 }
 }
-}
            if(bevel=="yes"){
                // Outer
      translate([0,0,2.975]){
@@ -500,9 +508,7 @@ else{
 
 }
 }
-}
 module vesa(){
-        translate ([50,0,0]){
 difference(){
     union(){
         // VESA base
@@ -539,7 +545,6 @@ difference(){
         }
         // Hollow out
     translate([0,0,2]) linear_extrude(30) offset(3) offset(-3) square([60,88], center=true);
-}
 }
 }
 

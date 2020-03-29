@@ -59,11 +59,11 @@ else {}
 module bottom(){
     translate ([50,0,0]){
         difference(){
-            union(){
+            union(){ // UNION 1
                 difference(){
-                    union(){
+                    union(){ // UNION 2
                         difference(){
-                            union(){
+                            union(){ // UNION 3
         // Case
                                 if(bevel=="yes"){
                                     translate([0,0,2.975]){
@@ -87,7 +87,7 @@ module bottom(){
                                     }
                                     else {}
                                 }
-                                
+                                //END OF UNION 3
         // Rear holes for airflow
                                 if(cooling_slots=="yes"){
                                     rotate([90,0,0]) translate([0,14,-48]){
@@ -95,7 +95,11 @@ module bottom(){
                                         }
                                     }
                                     else{}
-                                    
+  
+    if( plain_base=="yes")
+    {}
+    else
+    {
                                     if(pi4=="yes"){
                                         // RJ-45 port
                                         translate([17.75,-45,6.5]) linear_extrude(14.5) square([17,16], center=true);
@@ -146,21 +150,31 @@ else {
        }
    }
 }
-   }
+}
+    }
    if(corners=="yes")
    {
        // Corners
        translate([0,0,0]) linear_extrude(27) for(X=33*[-1,1], Y=46*[-1,1]) translate([X,Y,-1]) circle(d=corner_od);
    }
    else{}
-    }
-    if(pi4=="yes"){
+   }
+   //END OF UNION2
+
+    
+    if(pi4=="yes" &&  plain_base!="yes" ){
             // Front cutout
     translate([-0.5,-(88)/2,6.5]) linear_extrude(20) square([55,3], center=true);
     }
     else{}
+    
         // Hollow out for lid
+    if( plain_base!="yes")
+    {
+
     translate([0,0,25.25]) linear_extrude(10) offset(3) offset(-3) square([62,91], center=true);
+    }
+
 
  if(bevel=="yes"){
         // Cut off top
@@ -179,8 +193,11 @@ else {
         for(X=33*[-1,1], Y=46*[-1,1]){
             translate([X,Y,23.5+(layer_height*4)]) cylinder(d1=3.6,d2=3.6+1.6,h=5);
             translate([X,Y,15]) cylinder(d1=3.6,d2=3.6+1.6,h=5);
-    // Screw holes
-    translate([X,Y,15-1]) linear_extrude(20) circle(d=corner_screw_d);
+    
+            // Corner Screw holes
+            //translate([X,Y,15-1]) 
+            translate([X,Y, corners_through=="yes" ? -1 :15-1]) 
+            linear_extrude(corners_through="yes" ? 35: 20 ) #circle(d= corner_screw_d);
             
             // New nut trap
         translate([33,Y,17.5]) nut_trap();
@@ -190,16 +207,22 @@ else {
     else{}
 
     }
+    
+    if ( plain_base!="yes" )
+    {
         // Stand offs 
-        // - not used when corners enabled as documented
     translate([0,10,1.9]){
         for(X=24.5*[-1,1], Y=29*[-1,1]) {
             translate([X,Y,0]) cylinder(d1=9, d2=6, h=3.4);
         }
        }
-}
+   }
+}  //END OF UNION 1
+
+if ( plain_base!="yes" )
+    {
        if(corners=="yes"){
-        // Screw holes in supports
+        // Screw holes in the lower standoff
            translate([0,10,3]){
                linear_extrude(3)
                for(X=24.5*[-1,1], Y=29*[-1,1]) {
@@ -209,24 +232,31 @@ else {
    }
 else {
     translate([0,10,1.8]){
-        // Screw holes for base
+        // Screw holes for base (through the bottom)
         linear_extrude(4.9) for(X=24.5*[-1,1], Y=29*[-1,1]) {
             translate([X,Y,0]) circle(d=bottom_pi_screw_d);
         }
    }
+   }
+   
+       //  Bottom screw hole taper
   translate([0,10,1.9]){
       for(X=24.5*[-1,1], Y=29*[-1,1]) {
             translate([X,Y,0]) cylinder(d1=7.1, d2=3, h=2.5);
         }
    }
-           // Stand offs
+       // Bottom screw hole taper
        translate([0,10,-0.5]){
        for(X=24.5*[-1,1], Y=29*[-1,1]) {
             translate([X,Y,0]) cylinder(d1=7, d2=7, h=2.475);
         }
+   
+    }
+   
    }
-   }
-if(sd_card=="yes"){
+if ( plain_base!="yes" )   
+{
+if(sd_card=="yes"  ){
     // microSD card slot
     translate([0,51,-1]) linear_extrude(7.7) square([15,21], center=true);
 }
@@ -236,6 +266,8 @@ else{
 }
 }
 }
+}
+
 module top(){
 fan_holes=((fan_size/100)*80)/2;
 fan_hole=(fan_size/100)*95;
@@ -294,6 +326,7 @@ difference(){
     else{}
 
     // Hollow out
+    
             if(bevel=="yes"){
                 translate([0,0,5]) {
                 minkowski(){
@@ -348,7 +381,7 @@ difference(){
               }
 }
 }
-        // Screw holes in standoffs
+        // Screw holes in (top) standoffs
     translate([0,10,20]){
         linear_extrude(10) for(X=24.5*[-1,1], Y=29*[-1,1]) {
             translate([X,Y,0]) circle(d=screw_hole);

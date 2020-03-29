@@ -92,3 +92,5 @@ fan_grill_thickness = 1;
 corner_screw_d = 3.6 ;
 corner_od = 11; // could set to be larger by a certain amount via  
 // corner thickness = 
+plain_base="no"; // no pi holes
+corners_through="no"; //  corner holes all way through

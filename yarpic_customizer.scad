@@ -81,3 +81,14 @@ dc_text="no"; //[no:No,yes:Yes]
 // Print this out and then change the variable "screw_hole" if your screws are too tight (increase the variable) or too loose (decrease the variable) until the screws fit snugly.
 screwtest="no"; //[no:No,yes:Yes]
 screw_hole=2.75;
+
+
+// Moved from hard coded
+// To be better documented eventually
+// Or to be merged with other variables.
+// some of the hard coded stuff should not be available to customise 
+bottom_pi_screw_d = 3.2 ; // used if standoffs on the top (no corners)
+fan_grill_thickness = 1;
+corner_screw_d = 3.6 ;
+corner_od = 11; // could set to be larger by a certain amount via  
+// corner thickness = 

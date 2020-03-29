@@ -147,13 +147,12 @@ else {
    }
 }
    }
-          if(corners=="yes"){
-    // Corners
-    translate([0,0,0]) linear_extrude(27) for(X=33*[-1,1], Y=46*[-1,1]) translate([X,Y,-1])  circle(d=11);
-    }
-
-else{
-    }
+   if(corners=="yes")
+   {
+       // Corners
+       translate([0,0,0]) linear_extrude(27) for(X=33*[-1,1], Y=46*[-1,1]) translate([X,Y,-1]) circle(d=corner_od);
+   }
+   else{}
     }
     if(pi4=="yes"){
             // Front cutout
@@ -181,7 +180,7 @@ else{
             translate([X,Y,23.5+(layer_height*4)]) cylinder(d1=3.6,d2=3.6+1.6,h=5);
             translate([X,Y,15]) cylinder(d1=3.6,d2=3.6+1.6,h=5);
     // Screw holes
-    translate([X,Y,15-1]) linear_extrude(20) circle(d=3.6);
+    translate([X,Y,15-1]) linear_extrude(20) circle(d=corner_screw_d);
             
             // New nut trap
         translate([33,Y,17.5]) nut_trap();
@@ -191,7 +190,8 @@ else{
     else{}
 
     }
-        // Stand offs
+        // Stand offs 
+        // - not used when corners enabled as documented
     translate([0,10,1.9]){
         for(X=24.5*[-1,1], Y=29*[-1,1]) {
             translate([X,Y,0]) cylinder(d1=9, d2=6, h=3.4);
@@ -199,18 +199,19 @@ else{
        }
 }
        if(corners=="yes"){
-        // Screw holes
+        // Screw holes in supports
            translate([0,10,3]){
-        linear_extrude(3) for(X=24.5*[-1,1], Y=29*[-1,1]) {
-            translate([X,Y,0]) circle(d=screw_hole);
+               linear_extrude(3)
+               for(X=24.5*[-1,1], Y=29*[-1,1]) {
+                    translate([X,Y,0]) circle(d=screw_hole);
         }
    }
    }
 else {
     translate([0,10,1.8]){
-        // Screw holes
+        // Screw holes for base
         linear_extrude(4.9) for(X=24.5*[-1,1], Y=29*[-1,1]) {
-            translate([X,Y,0]) circle(d=3.2);
+            translate([X,Y,0]) circle(d=bottom_pi_screw_d);
         }
    }
   translate([0,10,1.9]){
@@ -278,21 +279,20 @@ difference(){
 }
        if(corners=="yes"){
            // Corners
-    translate([0,0,0]) linear_extrude(8) for(X=33*[-1,1], Y=46*[-1,1]) translate([X,Y,-1])  circle(d=11);
+    translate([0,0,0]) linear_extrude(8) for(X=33*[-1,1], Y=46*[-1,1]) translate([X,Y,-1])  circle(d=corner_od);
     }
     else{}
     
     }
        if(corners=="yes"){
     // Corner screw holes
-    translate([0,0,0]) linear_extrude(9) for(X=33*[-1,1], Y=46*[-1,1]) translate([X,Y,-1])  circle(d=3.6);
+    translate([0,0,0]) linear_extrude(9) for(X=33*[-1,1], Y=46*[-1,1]) translate([X,Y,-1])  circle(d=corner_screw_d);
         
     // Corner screw embeds
         translate([0,0,0]) for(X=33*[-1,1], Y=46*[-1,1]) translate([X,Y,0])  cylinder(d1=7,d2=3.6,h=3);
     }
-    else{
-        }
-    
+    else{}
+
     // Hollow out
             if(bevel=="yes"){
                 translate([0,0,5]) {
@@ -306,109 +306,54 @@ difference(){
                 translate([0,0,2]) linear_extrude(8) offset(3) offset(-3) square([59,88], center=true);
             }
     
-    // GPIO cutout
-if(gpio=="yes"){
-    translate([-24.4,10,-1]) linear_extrude(10) square([8,52], center=true);
-
 if(fan=="yes"){
-        
-    // Fan hole
-    translate([4,10,-1]) linear_extrude(5) circle(d=fan_hole);
+    translate([gpio=="yes" ? 4:0,10,0])
+     {
+          // Fan Hole 
+          translate([0,0,fan_grill_thickness])
+          linear_extrude(5) circle(d=fan_hole);
+          
+            // Holes for mesh
+
+    grill = (fan_size / 1.1) / (fan_size / 8) - 1.5;
+    x = (grill * 0.75 + 1.5 * sqrt(3) / 2);
+    y = (grill / 2 * sqrt(3) + 1.5);
+    translate([0,0,-0.1])
+    intersection()
+    {
+         cylinder(d=fan_hole,h= fan_grill_thickness+1,center=false);
+    translate([-45/2, -45.5/2, 0])
+    for(i = [0 : fan_size / 8 * 2])
+    {
+        for(j = [0 : fan_size / 8 * 2])
+        {
+                translate([x * i, y * (j + 0.5 * (i % 2)), 0])
+                    linear_extrude(fan_grill_thickness +1) circle(d = grill, $fn = 6);
         }
-        else{}
     }
-    else {
-    if(fan=="yes"){  
-
-    // Fan hole
-    translate([0,10,-1]) linear_extrude(5) circle(d=fan_hole);
-
-}
-}
-}
-        if(fan=="yes"){
-            if(gpio=="yes"){
-                            translate([4,10,0.01]){
-            difference(){
-        union(){
-            linear_extrude(1)  square([45,45], center=true);
-        }
     
-
-    // Holes for mesh
-       translate([0,0,-1]){
-    grill = (fan_size / 1.1) / (fan_size / 8) - 1.5;
-    x = (grill * 0.75 + 1.5 * sqrt(3) / 2);
-    y = (grill / 2 * sqrt(3) + 1.5);
-
-    translate([-45/2, -45.5/2, -0.5])
-    for(i = [0 : fan_size / 8 * 2])
-    {
-        for(j = [0 : fan_size / 8 * 2])
-        {
-                translate([x * i, y * (j + 0.5 * (i % 2)), 0])
-                    linear_extrude(3) circle(d = grill, $fn = 6);
-        }
-    }
+    }  
     }
 }
 }
-}
-            else{
-                            translate([0,10,0.01]){
-            difference(){
-        union(){
-            linear_extrude(1)  square([50,50], center=true);
-        }
-
-    // Holes for mesh
-       translate([0,0,-1]){
-    grill = (fan_size / 1.1) / (fan_size / 8) - 1.5;
-    x = (grill * 0.75 + 1.5 * sqrt(3) / 2);
-    y = (grill / 2 * sqrt(3) + 1.5);
-
-    translate([-45/2, -45.5/2, -0.5])
-    for(i = [0 : fan_size / 8 * 2])
-    {
-        for(j = [0 : fan_size / 8 * 2])
-        {
-                translate([x * i, y * (j + 0.5 * (i % 2)), 0])
-                    linear_extrude(3) circle(d = grill, $fn = 6);
-        }
-    }
-    }
-}
-}
-}
-}
+         
 if(corners=="yes"){}
 else{
 difference(){
     union(){
         translate([0,10,0]){
-        // Stand offs
+        // Stand offs in top
               for(X=24.5*[-1,1], Y=29*[-1,1]) {
             translate([X,Y,0]) cylinder(h=28.2, r1=5, r2=3);
               }
 }
 }
-        // Screw holes
+        // Screw holes in standoffs
     translate([0,10,20]){
         linear_extrude(10) for(X=24.5*[-1,1], Y=29*[-1,1]) {
             translate([X,Y,0]) circle(d=screw_hole);
         }
    }
-   if(gpio=="yes"){
-            difference(){
-            {
-        union(){
-            // GPIO cutout
-    translate([-24.4,10,-1]) linear_extrude(27.2) square([8,52], center=true);
-   }
-   }
-   }
-   }
-   else{}
    }
 }   
 }
@@ -450,6 +395,12 @@ else {
     translate([0,10,-0.25]) for(X=fan_holes*[-1,1], Y=fan_holes*[-1,1]) translate([X,Y,-1])  cylinder(d1=8, d2=3.6, h=3.5);
     }
 }
+// JUST do gpio slot once here
+   if(gpio=="yes"){
+       // GPIO cutout
+       translate([-24.4,10,-1]) linear_extrude(27.2) square([8,52], center=true);
+   }
+   else{}
 }
 }
 }
@@ -563,7 +514,7 @@ difference(){
 
 module nut_trap(){
 difference(){
-            union(){
+    union(){
                 translate([32.5-33+5,0,1]) rotate([0,35,0]) linear_extrude(10) square([5,8.75], center=true);
                     translate([5,1,0]) translate([0,0,0]) rotate([0,0,16.5]) linear_extrude(3.5) square([4.5,5.5], center=true);
                     translate([5,-1,0]) rotate([0,0,-16.5]) linear_extrude(3.5) square([4.5,5.5], center=true);
@@ -578,5 +529,5 @@ difference(){
                 translate([4,0+6.204,0]) rotate([0,0,16.5]) linear_extrude(10) square([5,5.0475], center=true);
                 translate([4,0-6.204,0]) rotate([0,0,-16.5]) linear_extrude(10) square([5,5.0475], center=true);
 
-        }
     }
+}

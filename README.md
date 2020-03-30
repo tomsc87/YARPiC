@@ -1,10 +1,20 @@
+[UPDATE: 30/03/2020]
+
+Minor update.
+
+<ul>
+<li>Merged part translates from "touchscreen" branch because they're cleaner.</li>
+<li>Merged GPIO/fan translate from mkgin's fork because it helps remove redundant code.</li>
+</ul>
+</ul>
+
 [UPDATE: 12/03/2020]
 
 Another small update.
 
 <ul>
-  <li>Redesigned nut trap for corners.</li>
-  <li>Fixed corner impinging on front cutout for Pi4.</li>
+<li>Redesigned nut trap for corners.</li>
+<li>Fixed corner impinging on front cutout for Pi4.</li>
 </ul>
 
 [UPDATE: 09/03/2020]

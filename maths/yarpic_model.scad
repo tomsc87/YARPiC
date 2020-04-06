@@ -8,245 +8,241 @@
 
 // I wouldn't touch the rest either if I were you... it's a complete mess.
 
-    if((rail=="yes")&&(corners=="yes")){
+if((rail=="yes")&&(corners=="yes")){
     translate([0,12,0]) linear_extrude(2) text("Turn off either rail or corners.", halign="center", valign="center"); 
-        }
+}
 else{}
 
-    if((rail=="yes")&&(vesa=="yes")){
-    translate([0,0,0]) linear_extrude(2) text("Turn off either rail or vesa.", halign="center", valign="center"); 
-        }
+if((rail=="yes")&&(vesa=="yes")){
+    translate([0,0,0]) linear_extrude(2) text("Turn off either rail or vesa.", halign="center", valign="center");
+}
 else{}
 
 if(part=="bottom"){
-        if((rail=="yes")&&(corners=="yes"||vesa=="yes")||(dc_text=="yes")||(screwtest=="yes")){}
-        else{
-bottom();
-        }
+    if((rail=="yes")&&(corners=="yes"||vesa=="yes")||(dc_text=="yes")||(screwtest=="yes")){}
+    else{
+        bottom();
+    }
 }
 else {}
 
 if(part=="top"){
-        if((rail=="yes")&&(corners=="yes"||vesa=="yes")||(dc_text=="yes")||(screwtest=="yes")){}
-        else{
-top();
-        }
+    if((rail=="yes")&&(corners=="yes"||vesa=="yes")||(dc_text=="yes")||(screwtest=="yes")){}
+    else{
+        top();
+    }
 }
 else {}
 
 if(part=="both"){
     if((rail=="yes")&&(corners=="yes"||vesa=="yes")||(dc_text=="yes")||(screwtest=="yes")){}
     else{
-    translate([-50,0,0]) top();
-    translate([50,0,0]) bottom();
+        translate([-50,0,0]) top();
+        translate([50,0,0]) bottom();
         if(vesa=="yes"){
             translate([50,0,0]) vesa();
         }
         else{}
-}
+    }
 }
 else{}
 
 if(dc_text=="yes"){
     if(screwtest=="yes"){}
     else{
-dc_text();
+        if(part=="both"){
+            translate([-50,0,0])dc_text();
+        }
+        else{
+            dc_text();
         }
     }
+}
 else {}
 
 if((vesa=="yes")&&(part=="bottom")){
-        if((rail=="yes")&&(corners=="yes"||vesa=="yes")||((dc_text=="yes"))||(screwtest=="yes")){}
-        else{
-vesa();
-       }
+    if((rail=="yes")&&(corners=="yes"||vesa=="yes")||((dc_text=="yes"))||(screwtest=="yes")){}
+    else{
+        vesa();
+    }
 }
 else {}
 
 if(screwtest=="yes"){
-    
-screwtest();
-        }
+    screwtest();
+}
 else {}
 
 module bottom(){
-        difference(){
-            union(){
-                difference(){
-                    union(){
-                        difference(){
-                            union(){
-        // Case
-                                if(bevel=="yes"){
-                                    translate([0,0,2.975]){
+    difference(){
+        union(){
+            difference(){
+                union(){
+                    difference(){
+                        union(){
+                            // Case
+                            if(bevel=="yes"){
+                                translate([0,0,2.975]){
+                                    minkowski(){
+                                        linear_extrude(27)  square([(59),(88)], center=true);
+                                        sphere(3);
+                                    }
+                                }
+                            }
+                            else{
+                                linear_extrude(27) offset(3) offset(-3) square([(65),(94)], center=true);
+                            }
+                            // V-slot
+                            if(rail=="yes"){
+                                difference(){
+                                    union(){
+                                        translate([31,0,0]) linear_extrude(21) square([3,120], center=true);
+                                    }
+                                    for (y=55*[1,-1]) translate([33.5,y,10.5]) rotate([0,-90,0]) linear_extrude(10) circle(d=3.5);
+                                    }
+                                }
+                                else{}
+                            }
+                            // Rear holes for airflow
+                            if(cooling_slots=="yes"){
+                                rotate([90,0,0]) translate([0,14,-48]){
+                                    linear_extrude(6) for(X=3.25*[-1,1,-3,3,-5,5,-7,7], Y=2.5) translate([X,Y,-1]) offset(1) offset(-1) square([4,15], center=true);
+                                    }
+                                }
+                                else{}
+                                if(pi4=="yes"){
+                                    // RJ-45 port
+                                    translate([17.75,-45,6.5]) linear_extrude(14.5) square([17,16], center=true);
+                                    // USB port
+                                    translate([-10,-45,6.7]){
+                                        for(x=-9*[1,-1]){
+                                            translate([x,0,0]) linear_extrude(17) square([16.5,16], center=true);
+                                        }
+                                    }
+                                    // power port
+                                    translate([-28,31.9,6]) linear_extrude(5.5) square([16,12.5], center=true);
+                                    // HDMI port
+                                    translate([-28,(19.5/2),4.5]){
+                                        for(y=(13.5/2)*[1,-1]){
+                                            translate([0,y,0]) linear_extrude(7.6) square([16,11.2], center=true);
+                                        }
+                                    }
+                                    // audio port
+                                    translate([-28,-11.4,6.2]) linear_extrude(6.8) square([16,6.8], center=true);
+                                    // Side cutout
+                                    translate([-35.75,11,6]){
                                         minkowski(){
-                                            linear_extrude(27)  square([(59),(88)], center=true);
+                                            linear_extrude(8.5) square([4,55], center=true);
                                             sphere(3);
                                         }
                                     }
                                 }
                                 else{
-                                    linear_extrude(27) offset(3) offset(-3) square([(65),(94)], center=true);
-                                }
-     // V-slot
-                                if(rail=="yes"){
-                                    difference(){
-                                        union(){
-                                            translate([31,0,0]) linear_extrude(21) square([3,120], center=true);
-                                        }
-                                        for (y=55*[1,-1]) translate([33.5,y,10.5]) rotate([0,-90,0]) linear_extrude(10) circle(d=3.5);
+                                    // RJ-45 port
+                                    translate([-17.75,-45,6.5]) linear_extrude(14.5) square([17,16], center=true);
+                                    // USB port
+                                    translate([10,-45,6.4]){
+                                        for(x=9*[1,-1]){
+                                            translate([x,0,0]) linear_extrude(17) square([16.5,16], center=true);
                                         }
                                     }
-                                    else {}
-                                }
-                                
-        // Rear holes for airflow
-                                if(cooling_slots=="yes"){
-                                    rotate([90,0,0]) translate([0,14,-48]){
-                                        linear_extrude(6) for(X=3.25*[-1,1,-3,3,-5,5,-7,7], Y=2.5) translate([X,Y,-1]) offset(1) offset(-1) square([4,15], center=true);
+                                    // power port
+                                    translate([-28,31.9,6.3]) linear_extrude(4) square([15,10], center=true);
+                                    // HDMI port
+                                    translate([-28,10.5,7.3]) linear_extrude(7) square([16,17], center=true);
+                                    // audio port
+                                    translate([-28,-11,6.3]) linear_extrude(6.6) square([16,6.6], center=true);
+                                    // Side cutout
+                                    translate([-35.75,11,6]){
+                                        minkowski(){
+                                            linear_extrude(12) square([4,55], center=true);
+                                            sphere(3);
                                         }
                                     }
-                                    else{}
-                                    
-                                    if(pi4=="yes"){
-                                        // RJ-45 port
-                                        translate([17.75,-45,6.5]) linear_extrude(14.5) square([17,16], center=true);
-                                        // USB port
-                                        translate([-10,-45,6.7]){
-    for(x=-9*[1,-1])
-    {
-        translate([x,0,0]) linear_extrude(17) square([16.5,16], center=true);
-    }
-}
-    // power port
-        translate([-28,31.9,6]) linear_extrude(5.5) square([16,12.5], center=true);
-    // HDMI port
-        translate([-28,(19.5/2),4.5]){
-        for(y=(13.5/2)*[1,-1]){
-            translate([0,y,0]) linear_extrude(7.6) square([16,11.2], center=true);
-        }
-    }
-    // audio port
-    translate([-28,-11.4,6.2]) linear_extrude(6.8) square([16,6.8], center=true);
-    // Side cutout
-    translate([-35.75,11,6]){
-       minkowski(){ linear_extrude(8.5) square([4,55], center=true);
-           sphere(3);
-       }
-   }
-    }
-else {    
-    // RJ-45 port
-    translate([-17.75,-45,6.5]) linear_extrude(14.5) square([17,16], center=true);
-    // USB port
-        translate([10,-45,6.4]){
-    for(x=9*[1,-1])
-    {
-        translate([x,0,0]) linear_extrude(17) square([16.5,16], center=true);
-    }
-}
-    // power port
-    translate([-28,31.9,6.3]) linear_extrude(4) square([15,10], center=true);
-    // HDMI port
-    translate([-28,10.5,7.3]) linear_extrude(7) square([16,17], center=true);
-    // audio port
-    translate([-28,-11,6.3]) linear_extrude(6.6) square([16,6.6], center=true);
-        // Side cutout
-    translate([-35.75,11,6]){
-       minkowski(){ linear_extrude(12) square([4,55], center=true);
-           sphere(3);
-       }
-   }
-}
-   }
-          if(corners=="yes"){
-    // Corners
-    translate([0,0,0]) linear_extrude(27) for(X=33*[-1,1], Y=46*[-1,1]) translate([X,Y,-1])  circle(d=11);
-    }
-
-else{
-    }
-    }
-    if(pi4=="yes"){
-            // Front cutout
-    translate([-0.5,-(88)/2,6.5]) linear_extrude(20) square([55,3], center=true);
-    }
-    else{}
-        // Hollow out for lid
-    translate([0,0,25.25]) linear_extrude(10) offset(3) offset(-3) square([62,91], center=true);
-
- if(bevel=="yes"){
-        // Cut off top
-    translate([0,0,27]) linear_extrude(9) square([79,118], center=true);
-        // Hollow out
-    minkowski(){
-    translate([0,0,5]) linear_extrude(30) square([59-5.5,88-5.5], center=true);
-                sphere(3);
+                                }
+                            }
+                            if(corners=="yes"){
+                                // Corners
+                                translate([0,0,0]) linear_extrude(27) for(X=33*[-1,1], Y=46*[-1,1]) translate([X,Y,-1])  circle(d=11);
+                                }
+                                else{}
+                            }
+                            if(pi4=="yes"){
+                                // Front cutout
+                                translate([-0.5,-(88)/2,6.5]) linear_extrude(20) square([55,3], center=true);
+                            }
+                            else{}
+                            // Hollow out for lid
+                            translate([0,0,25.25]) linear_extrude(10) offset(3) offset(-3) square([62,91], center=true);
+                            if(bevel=="yes"){
+                                // Cut off top
+                                translate([0,0,27]) linear_extrude(9) square([79,118], center=true);
+                                // Hollow out
+                                minkowski(){
+                                    translate([0,0,5]) linear_extrude(30) square([59-5.5,88-5.5], center=true);
+                                    sphere(3);
+                                }
+                            }
+                            else{
+                                translate([0,0,2]) linear_extrude(30) offset(3) offset(-3) square([59.5,88.5], center=true);
+                            }
+                            if(corners=="yes"){
+                                for(X=33*[-1,1], Y=46*[-1,1]){
+                                    translate([X,Y,23.5+(layer_height*4)]) cylinder(d1=3.6,d2=3.6+1.6,h=5);
+                                    translate([X,Y,15]) cylinder(d1=3.6,d2=3.6+1.6,h=5);
+                                    // Screw holes
+                                    translate([X,Y,15-1]) linear_extrude(20) circle(d=3.6);
+                                    // New nut trap
+                                    translate([33,Y,17.5]) nut_trap();
+                                    translate([-33,Y,17.5]) rotate([0,0,180]) nut_trap();
+                                }
+                            }
+                            else{}
+                        }
+                        // Stand offs
+                        translate([0,10,1.9]){
+                            for(X=24.5*[-1,1], Y=29*[-1,1]){
+                                translate([X,Y,0]) cylinder(d1=9, d2=6, h=3.4);
+                            }
+                        }
+                    }
+                    if(corners=="yes"){
+                        // Screw holes
+                        translate([0,10,3]){
+                            linear_extrude(3) for(X=24.5*[-1,1], Y=29*[-1,1]){
+                                translate([X,Y,0]) circle(d=screw_hole);
+                            }
+                        }
+                    }
+                    else{
+                        translate([0,10,1.8]){
+                            // Screw holes
+                            linear_extrude(4.9) for(X=24.5*[-1,1], Y=29*[-1,1]){
+                                translate([X,Y,0]) circle(d=3.2);
+                            }
+                        }
+                        translate([0,10,1.9]){
+                            for(X=24.5*[-1,1], Y=29*[-1,1]){
+                                translate([X,Y,0]) cylinder(d1=7.1, d2=3, h=2.5);
+                            }
+                        }
+                        // Stand offs
+                        translate([0,10,-0.5]){
+                            for(X=24.5*[-1,1], Y=29*[-1,1]){
+                                translate([X,Y,0]) cylinder(d1=7, d2=7, h=2.475);
+                            }
+                        }
+                    }
+                    if(sd_card=="yes"){
+                        // microSD card slot
+                        translate([0,51,-1]) linear_extrude(7.7) square([15,21], center=true);
+                    }
+                    else{
+                        translate([0,43.5,3]) linear_extrude(4.5) square([15,3.5], center=true);
+                    }
+                }
             }
-        }
-        else {
-            translate([0,0,2]) linear_extrude(30) offset(3) offset(-3) square([59.5,88.5], center=true);
-        }
-    
-       if(corners=="yes"){
-        for(X=33*[-1,1], Y=46*[-1,1]){
-            translate([X,Y,23.5+(layer_height*4)]) cylinder(d1=3.6,d2=3.6+1.6,h=5);
-            translate([X,Y,15]) cylinder(d1=3.6,d2=3.6+1.6,h=5);
-    // Screw holes
-    translate([X,Y,15-1]) linear_extrude(20) circle(d=3.6);
             
-            // New nut trap
-        translate([33,Y,17.5]) nut_trap();
-        translate([-33,Y,17.5]) rotate([0,0,180]) nut_trap();
-    }
-        }
-    else{}
-
-    }
-        // Stand offs
-    translate([0,10,1.9]){
-        for(X=24.5*[-1,1], Y=29*[-1,1]) {
-            translate([X,Y,0]) cylinder(d1=9, d2=6, h=3.4);
-        }
-       }
-}
-       if(corners=="yes"){
-        // Screw holes
-           translate([0,10,3]){
-        linear_extrude(3) for(X=24.5*[-1,1], Y=29*[-1,1]) {
-            translate([X,Y,0]) circle(d=screw_hole);
-        }
-   }
-   }
-else {
-    translate([0,10,1.8]){
-        // Screw holes
-        linear_extrude(4.9) for(X=24.5*[-1,1], Y=29*[-1,1]) {
-            translate([X,Y,0]) circle(d=3.2);
-        }
-   }
-  translate([0,10,1.9]){
-      for(X=24.5*[-1,1], Y=29*[-1,1]) {
-            translate([X,Y,0]) cylinder(d1=7.1, d2=3, h=2.5);
-        }
-   }
-           // Stand offs
-       translate([0,10,-0.5]){
-       for(X=24.5*[-1,1], Y=29*[-1,1]) {
-            translate([X,Y,0]) cylinder(d1=7, d2=7, h=2.475);
-        }
-   }
-   }
-if(sd_card=="yes"){
-    // microSD card slot
-    translate([0,51,-1]) linear_extrude(7.7) square([15,21], center=true);
-}
-else{
-    translate([0,43.5,3]) linear_extrude(4.5) square([15,3.5], center=true);
-}
-}
-}
-
 module top(){
 fan_holes=((fan_size/100)*80)/2;
 fan_hole=(fan_size/100)*95;
@@ -494,39 +490,37 @@ difference(){
 }
 
 module screwtest(){
-difference(){
-    union(){
-        linear_extrude(2) offset(3) offset(-3) square([26,26], center=true);
-        // Stand offs
-        linear_extrude(18.2) for(X=10*[-1,1], Y=10*[-1,1]) {
-            translate([X,Y,0]) circle(d=6);
-    }
-    }
-        // Screw holes
-    translate([0,0,10]){
-        linear_extrude(27.2) for(X=10*[-1,1], Y=10*[-1,1]) {
-            translate([X,Y,0]) circle(d=screw_hole);
+    difference(){
+        union(){
+            linear_extrude(2) offset(3) offset(-3) square([26,26], center=true);
+            // Stand offs
+            linear_extrude(18.2) for(X=10*[-1,1], Y=10*[-1,1]) {
+                translate([X,Y,0]) circle(d=6);
+            }
         }
-   }   
-}
+        // Screw holes
+        translate([0,0,10]){
+            linear_extrude(27.2) for(X=10*[-1,1], Y=10*[-1,1]) {
+                translate([X,Y,0]) circle(d=screw_hole);
+            }
+        }
+    }
 }
 
 module nut_trap(){
-difference(){
-            union(){
-                translate([32.5-33+5,0,1]) rotate([0,35,0]) linear_extrude(10) square([5,8.75], center=true);
-                    translate([5,1,0]) translate([0,0,0]) rotate([0,0,16.5]) linear_extrude(3.5) square([4.5,5.5], center=true);
-                    translate([5,-1,0]) rotate([0,0,-16.5]) linear_extrude(3.5) square([4.5,5.5], center=true);
-                
-                    translate([3.75,0,0]) linear_extrude(3.5) square([4.5,6], center=true);
+    difference(){
+        union(){
+            translate([32.5-33+5,0,1]) rotate([0,35,0]) linear_extrude(10) square([5,8.75], center=true);
+            translate([5,1,0]) translate([0,0,0]) rotate([0,0,16.5]) linear_extrude(3.5) square([4.5,5.5], center=true);
+            translate([5,-1,0]) rotate([0,0,-16.5]) linear_extrude(3.5) square([4.5,5.5], center=true);
+            translate([3.75,0,0]) linear_extrude(3.5) square([4.5,6], center=true);
             translate([0,0,0]) linear_extrude(3.5)circle(d=6.93, $fn=6);
-                    translate([0,0,3.5]){
+            translate([0,0,3.5]){
     linear_extrude(layer_height*2) square([3.6,6], center =true);
-    linear_extrude(layer_height*4) square([3.6,3.6], center=true);
-                    }
-                }
-                translate([4,0+6.204,0]) rotate([0,0,16.5]) linear_extrude(10) square([5,5.0475], center=true);
-                translate([4,0-6.204,0]) rotate([0,0,-16.5]) linear_extrude(10) square([5,5.0475], center=true);
-
+                linear_extrude(layer_height*4) square([3.6,3.6], center=true);
+            }
         }
+        translate([4,0+6.204,0]) rotate([0,0,16.5]) linear_extrude(10) square([5,5.0475], center=true);
+        translate([4,0-6.204,0]) rotate([0,0,-16.5]) linear_extrude(10) square([5,5.0475], center=true);
     }
+}

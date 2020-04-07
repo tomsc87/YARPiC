@@ -268,7 +268,7 @@ module top(){
                                     difference(){
                                         union(){
                                             minkowski(){
-                                                linear_extrude(9.5)  square([55.5,85.5], center=true);
+                                                linear_extrude(9.5)  square([55.5,84.5], center=true);
                                                 sphere(3);
                                             }
                                         }

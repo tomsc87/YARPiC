@@ -41,6 +41,9 @@ rail="no"; //[no:No,yes:Yes]
 // Thingiverse user mikegi wanted the option to have the SD card covered, so here it is.
 sd_card="yes"; //[yes:Yes,no:No]
 
+// This just adds my domain name to the bottom of the case.
+logo="yes"; //[yes:Yes,no:No]
+
 /*[Top]*/
 
 // Adds access to GPIO header through lid. This will also offset the fan slightly (if fan is enabled).
@@ -51,6 +54,9 @@ fan="no"; //[no:No,yes:Yes]
 
 // Change fan size. It should work for any size fan (assuming it fits in the case); however, I've only tried it with the sizes that are listed. Input should be in millimetres between "25" and "40".
 fan_size=40; //[25,30,40]
+
+// This option allows you to fully embed the corner screws for a cleaner look. Unfortunately, it doesn't work with the fan screws.
+full_embed="no"; //[yes:Yes,no:No]
 
 /*[Text options]*/
 

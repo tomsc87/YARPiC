@@ -2,7 +2,7 @@
 
 // To make it as simple as possible, I've split it into two parts: 1) a customizer (this document), and 2) another file that does all the hard work (maths/yarpic_model.scad). If I've done my job correctly, you shouldn't need to touch the latter (and see how much of a mess my coding is).
 
-//// Anyway, I hope you find this easy to use and post your makes to Thingiverse. If you have any comments, complaints, or suggestions, feel free to leave a comment (here: https://www.thingiverse.com/thing:3464513).
+// Anyway, I hope you find this easy to use and post your makes to Thingiverse. If you have any comments, complaints, or suggestions, feel free to leave a comment (here: https://www.thingiverse.com/thing:3464513).
 
 include <maths/yarpic_model.scad>
 

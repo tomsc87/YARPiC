@@ -482,6 +482,7 @@ module vesa(){
         union(){
             // VESA base
             for(r=45*[-1,1]){
+//                bottom();
                 rotate([0,0,r]) linear_extrude(2.3) offset(10.25) offset(-10.24) square([20.5,160], center=true);
             }
         }
@@ -490,16 +491,16 @@ module vesa(){
         else {
             // Stand offs
             translate([0,10,-0.5]){
-                linear_extrude(3) for(X=24.5*[-1,1], Y=29*[-1,1]) {
-                    translate([X,Y,0]) circle(d=6.8);
+                for(X=24.5*[-1,1], Y=29*[-1,1]){
+                    translate([X,Y,0]) linear_extrude(3) circle(d=6.8);
                 }
             }
             // Screw holes
-            translate([0,10,0]){
-                linear_extrude(6.3) for(X=24.5*[-1,1], Y=29*[-1,1]) {
-                    translate([X,Y,0]) circle(d=3.2);
-                }
-            }
+//            translate([0,10,0]){
+//                linear_extrude(6.3) for(X=24.5*[-1,1], Y=29*[-1,1]) {
+//                    translate([X,Y,0]) circle(d=3.2);
+//                }
+//            }
         }
         // VESA 100 mount holes
         for(x=50*[-1,1], y=50*[-1,1]){
@@ -513,8 +514,15 @@ module vesa(){
         }
         // Hollow out
         translate([0,0,2]) linear_extrude(30) offset(3) offset(-3) square([60,88], center=true);
+        
+        // Logo
+        if(logo=="yes"){
+            rotate([180,0,90]) translate([-3,0,-1]) linear_extrude(2) text("NSX-Systems.com", 9.5, "Agency FB:style=bold", halign="center", valign="center");
+        }
+        else{}
     }
 }
+
 
 module screwtest(){
     difference(){
@@ -538,7 +546,7 @@ module nut_trap(){
     difference(){
         union(){
             translate([32.5-33+5,0,1]) rotate([0,35,0]) linear_extrude(10) square([5,8.75], center=true);
-            translate([5,1,0]) translate([0,0,0]) rotate([0,0,16.5]) linear_extrude(3.5) square([4.5,5.5], center=true);
+            translate([5,1,0]) rotate([0,0,16.5]) linear_extrude(3.5) square([4.5,5.5], center=true);
             translate([5,-1,0]) rotate([0,0,-16.5]) linear_extrude(3.5) square([4.5,5.5], center=true);
             translate([3.75,0,0]) linear_extrude(3.5) square([4.5,6], center=true);
             translate([0,0,0]) linear_extrude(3.5)circle(d=6.93, $fn=6);

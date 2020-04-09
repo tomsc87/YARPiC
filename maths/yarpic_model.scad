@@ -482,7 +482,6 @@ module vesa(){
         union(){
             // VESA base
             for(r=45*[-1,1]){
-//                bottom();
                 rotate([0,0,r]) linear_extrude(2.3) offset(10.25) offset(-10.24) square([20.5,160], center=true);
             }
         }

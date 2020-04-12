@@ -2,7 +2,7 @@
 
 // To make it as simple as possible, I've split it into two parts: 1) a customizer (this document), and 2) another file that does all the hard work (maths/yarpic_model.scad). If I've done my job correctly, you shouldn't need to touch the latter (and see how much of a mess my coding is).
 
-// Anyway, I hope you find this easy to use and post your makes to Thingiverse. If you have any comments, complaints, or suggestions, feel free to leave a comment (here: https://www.thingiverse.com/thing:3464513).
+// Anyway, I hope you find this easy to use and post your makes to Thingiverse. If you have any comments, complaints, or suggestions, feel free to leave a comment (here: https://www.thingiverse.com/thing:3464513, or here: http://github.com/tomsc87/YARPiC).
 
 include <maths/yarpic_model.scad>
 
@@ -26,8 +26,8 @@ layer_height=0.2;
 
 /*[Bottom]*/
 
-// Moves the ports around for the new Raspberry Pi 4 Model B layout. Leave as "No" for Raspberry Pi 1 B+, 2 B, 3 B, 3 B+, and Tinker Board layout.
-pi4="no"; //[no:No,yes:Yes]
+// Moves the ports around for different models.
+model="pi3b"; //[pi3b:Paspberry Pi 1 B+/2 B/3 B/3 B+/Tinker Board,pi4:Paspberry Pi 4 B,pi3a:Paspberry Pi 1A+/3A+]
 
 // Add cooling slots on the rear (microSD side) wall.
 cooling_slots="no"; //[no:No,yes:Yes]
@@ -40,9 +40,6 @@ rail="no"; //[no:No,yes:Yes]
 
 // Thingiverse user mikegi wanted the option to have the SD card covered, so here it is.
 sd_card="yes"; //[yes:Yes,no:No]
-
-// This just adds my domain name to the bottom of the case.
-logo="yes"; //[yes:Yes,no:No]
 
 /*[Top]*/
 

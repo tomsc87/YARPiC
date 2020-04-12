@@ -40,7 +40,7 @@ if(part=="both"){
         translate([-50,model=="pi3a" ? -10:0,0]) top();
         translate([50,model=="pi3a" ? -10:0,0]) bottom();
         if(vesa=="yes"){
-            translate([50,model=="pi3a" ? -10:0,0]) vesa();
+            translate([50,model=="pi3a"&&corners=="yes" ? -10:0,0]) vesa();
         }
         else{}
     }

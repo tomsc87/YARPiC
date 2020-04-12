@@ -21,7 +21,7 @@ else{}
 if(part=="bottom"){
     if((rail=="yes")&&(corners=="yes"||vesa=="yes")||(dc_text=="yes")||(screwtest=="yes")){}
     else{
-        bottom();
+        translate([0,model=="pi3a" ? -10:0,0]) bottom();
     }
 }
 else {}
@@ -29,7 +29,7 @@ else {}
 if(part=="top"){
     if((rail=="yes")&&(corners=="yes"||vesa=="yes")||(dc_text=="yes")||(screwtest=="yes")){}
     else{
-        top();
+        translate([0,model=="pi3a" ? -10:0,0]) top();
     }
 }
 else {}
@@ -37,10 +37,10 @@ else {}
 if(part=="both"){
     if((rail=="yes")&&(corners=="yes"||vesa=="yes")||(dc_text=="yes")||(screwtest=="yes")){}
     else{
-        translate([-50,0,0]) top();
-        translate([50,0,0]) bottom();
+        translate([-50,model=="pi3a" ? -10:0,0]) top();
+        translate([50,model=="pi3a" ? -10:0,0]) bottom();
         if(vesa=="yes"){
-            translate([50,0,0]) vesa();
+            translate([50,model=="pi3a" ? -10:0,0]) vesa();
         }
         else{}
     }
@@ -51,13 +51,13 @@ if(dc_text=="yes"){
     if(screwtest=="yes"||add_text=="no"){}
     else{
         if(part=="both"){
-            translate([-50,0,0]) dc_text();
+            translate([-50,model=="pi3a" ? -10:0,0]) dc_text();
             if(logo=="yes"){
-                translate([50,0,0]) logo();
+                translate([50,model=="pi3a" ? -10:0,0]) logo();
             }
         }
         else if(part=="top"){
-            dc_text();
+            translate([0,model=="pi3a" ? -10:0,0]) dc_text();
         }
         else if(part=="bottom"&&logo=="yes"){
             logo();
@@ -70,7 +70,7 @@ else {}
 if((vesa=="yes")&&(part=="bottom")){
     if((rail=="yes")&&(corners=="yes"||vesa=="yes")||((dc_text=="yes"))||(screwtest=="yes")){}
     else{
-        vesa();
+        translate([0,model=="pi3a"&&corners=="yes" ? -10:0,0]) vesa();
     }
 }
 else {}
@@ -570,7 +570,7 @@ module vesa(){
         if(corners=="yes"){}
         else {
             // Screw embeds
-            translate([0,10,-0.5]){
+            translate([0,model=="pi3a" ? 0:10,-0.5]){
                 for(X=24.5*[-1,1], Y=29*[-1,1]){
                     translate([X,Y,0]) linear_extrude(3) circle(d=6.8);
                 }
@@ -587,7 +587,7 @@ module vesa(){
             translate([x,y,1]) linear_extrude(2) circle(d=9);
         }
         // Hollow out
-        translate([0,model=="pi3a" ? 10:0,2]) linear_extrude(30) offset(3) offset(-3) square([60,model=="pi3a" ? 68:88], center=true);
+        translate([0,model=="pi3a"&&corners=="yes" ? 10:0,2]) linear_extrude(30) offset(3) offset(-3) square([60,model=="pi3a" ? 68:88], center=true);
         
         // Logo
         if(logo=="yes"){

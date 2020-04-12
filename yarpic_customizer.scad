@@ -8,8 +8,8 @@ include <maths/yarpic_model.scad>
 
 /*[Main]*/
 
-// Increase to add smoothness (slow render); decrease to reduce smoothness (fast render). Default is "24".
-$fn = 24;
+// Moves the ports around for different models.
+model="pi3b"; //[pi3b:Paspberry Pi 1 B+/2 B/3 B/3 B+/Tinker Board,pi4:Paspberry Pi 4 B,pi3a:Paspberry Pi 1A+/3A+]
 
 // Render both top and bottom, or just top or bottom.
 part="both"; // [both:Both,bottom:Bottom,top:Top]
@@ -23,11 +23,10 @@ corners="no"; //[no:No,yes:Yes]
 // If using corners, set the layer height you plan to print at so a single layer gets printed above the nut housing as a base for the screw holes. You can use a drill or small circular file to remove it in post processing. If not using corners, this doesn't need to be set.
 layer_height=0.2;
 
+// Increase to add smoothness (slow render); decrease to reduce smoothness (fast render). Default is "24".
+$fn=24;
 
 /*[Bottom]*/
-
-// Moves the ports around for different models.
-model="pi3b"; //[pi3b:Paspberry Pi 1 B+/2 B/3 B/3 B+/Tinker Board,pi4:Paspberry Pi 4 B,pi3a:Paspberry Pi 1A+/3A+]
 
 // Add cooling slots on the rear (microSD side) wall.
 cooling_slots="no"; //[no:No,yes:Yes]

@@ -60,7 +60,7 @@ if(dc_text=="yes"){
             translate([0,model=="pi3a" ? -10:0,0]) dc_text();
         }
         else if(part=="bottom"&&logo=="yes"){
-            logo();
+            translate([0,model=="pi3a" ? -10:0,0]) logo();
         }
         else{}
     }
@@ -80,7 +80,7 @@ if(screwtest=="yes"){
 }
 else {}
 
-logo="no";
+logo="yes";
 
 module bottom(){
     difference(){
@@ -198,11 +198,7 @@ module bottom(){
                         }
                         else if(model=="pi3a"){
                             // USB port
-                            translate([-3.45,-25,6.4]){
-                                for(x=9*[1]){
-                                    translate([x,0,0]) linear_extrude(8.5) square([16.5,16], center=true);
-                                }
-                            }
+                            translate([3.45,-25,6.6]) linear_extrude(8.5) square([16.5,16], center=true);
                             // power port
                             translate([-28,31.9,6.3]) linear_extrude(4) square([15,10], center=true);
                             // HDMI port
@@ -216,6 +212,8 @@ module bottom(){
                                     sphere(3);
                                 }
                             }
+                            // Front cutout
+                    translate([3.45,-(68/2)+10,6.4]) linear_extrude(20) square([17,3], center=true);
                         }
                     }
                     if(corners=="yes"){
@@ -229,12 +227,7 @@ module bottom(){
                     translate([-0.5,-(88/2),6.4]) linear_extrude(20) square([55,3], center=true);
                 }
                 else if(model=="pi3a"){
-                    // Front cutout
-                    translate([-3.45,-(68/2)+10,6.4]){
-                       for(X=9*[1]){
-                           translate([X,0,0]) linear_extrude(20) square([17,3], center=true);
-                       }
-                   }
+                    
                 }
                 else{}
                 if(model=="pi3b"||model=="pi4"){

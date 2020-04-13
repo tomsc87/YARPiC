@@ -80,7 +80,7 @@ if(screwtest=="yes"){
 }
 else {}
 
-logo="yes";
+logo="no";
 
 module bottom(){
     difference(){

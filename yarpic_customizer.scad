@@ -51,7 +51,7 @@ fan="no"; //[no:No,yes:Yes]
 // Change fan size. It should work for any size fan (assuming it fits in the case); however, I've only tried it with the sizes that are listed. Input should be in millimetres between "25" and "40".
 fan_size=40; //[25,30,40]
 
-// This option allows you to fully embed the corner screws for a cleaner look. Unfortunately, it doesn't work with the fan screws.
+// This option allows you to fully embed the fan and/or corner screws for a cleaner look. (Might not work with 25mm fans.)
 full_embed="no"; //[yes:Yes,no:No]
 
 /*[Text options]*/

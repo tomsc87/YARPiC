@@ -443,9 +443,13 @@ module top(){
                     }
                 }
             }
+            if(full_embed=="yes"&&fan=="yes"){
+                                translate([0,0,2]) fan_test();
+                            }
+                            else{}
         }
         if(add_text=="yes"){
-            translate([model=="pi3a"&&gpio=="yes" ? 5:0,model=="pi3a" ? 14:0,0]){
+            translate([model=="pi3a"&&gpio=="yes" ? 4:0,model=="pi3a" ? 14:0,0]){
             if(line2==""){
                 translate([0,-30,1]) rotate([0,180,flip_text=="yes" ? 180:0]) linear_extrude(1) text(line1, text_size, font, halign="center", valign="center");
             }
@@ -458,39 +462,46 @@ module top(){
         if(fan=="yes"){
             // Fan screw embeds; have changed back to cones because of the small tolerances, added complexity, and reduced airflow in the new version.
             translate([gpio=="yes" ? 4:0,model=="pi3a" ? 14:10,0]){
+//                for(X=fan_holes*[-1,1], Y=fan_holes*[-1,1]) translate([X,Y,-1]){
+//                    cylinder(d1=8, d2=3.6, h=3.5);
+//                }
+                if(full_embed=="yes"){
+                for(X=fan_holes*[1,-1], Y=fan_holes*[1,-1]){
+                    translate([X,Y,0]) cylinder(d=3.6, h=3);
+                    translate([X,Y,0]) cylinder(d=6, h=3);
+                }
+                
+                for(X=fan_holes*[-1], Y=fan_holes*[1], R=45){
+                    translate([X,Y,3]) rotate([0,0,R]){
+                        linear_extrude(layer_height*2) square([4.75,3.6], center =true);
+                        linear_extrude(layer_height*4) square([3.6,3.6], center=true);
+                    }
+                }
+                for(X=fan_holes*[1], Y=fan_holes*[-1], R=45){
+                    translate([X,Y,3]) rotate([0,0,R]){
+                        linear_extrude(layer_height*2) square([4.75,3.6], center =true);
+                        linear_extrude(layer_height*4) square([3.6,3.6], center=true);
+                    }
+                }
+                for(X=fan_holes*[1], Y=fan_holes*[1], R=-45){
+                    translate([X,Y,3]) rotate([0,0,R]){
+                        linear_extrude(layer_height*2) square([4.75,3.6], center =true);
+                        linear_extrude(layer_height*4) square([3.6,3.6], center=true);
+                    }
+                }
+                for(X=fan_holes*[-1], Y=fan_holes*[-1], R=-45){
+                    translate([X,Y,3]) rotate([0,0,R]){
+                        linear_extrude(layer_height*2) square([4.75,3.6], center =true);
+                        linear_extrude(layer_height*4) square([3.6,3.6], center=true);
+                    }
+                }
+            }
+        else{
                 for(X=fan_holes*[-1,1], Y=fan_holes*[-1,1]) translate([X,Y,-1]){
                     cylinder(d1=8, d2=3.6, h=3.5);
                 }
-//                for(X=fan_holes*[1,-1], Y=fan_holes*[1,-1]){
-//                    translate([X,Y,0]) cylinder(d2=3.6, h=3);
-//                    translate([X,Y,0]) cylinder(d=6, h=0.61);
-//                }
-//                
-//                for(X=fan_holes*[-1], Y=fan_holes*[1], R=45){
-//                    translate([X,Y,0.6]) rotate([0,0,R]){
-//                        linear_extrude(layer_height*2) square([4.75,3.6], center =true);
-//                        linear_extrude(layer_height*4) square([3.6,3.6], center=true);
-//                    }
-//                }
-//                for(X=fan_holes*[1], Y=fan_holes*[-1], R=45){
-//                    translate([X,Y,0.6]) rotate([0,0,R]){
-//                        linear_extrude(layer_height*2) square([4.75,3.6], center =true);
-//                        linear_extrude(layer_height*4) square([3.6,3.6], center=true);
-//                    }
-//                }
-//                for(X=fan_holes*[1], Y=fan_holes*[1], R=-45){
-//                    translate([X,Y,0.6]) rotate([0,0,R]){
-//                        linear_extrude(layer_height*2) square([4.75,3.6], center =true);
-//                        linear_extrude(layer_height*4) square([3.6,3.6], center=true);
-//                    }
-//                }
-//                for(X=fan_holes*[-1], Y=fan_holes*[-1], R=-45){
-//                    translate([X,Y,0.6]) rotate([0,0,R]){
-//                        linear_extrude(layer_height*2) square([4.75,3.6], center =true);
-//                        linear_extrude(layer_height*4) square([3.6,3.6], center=true);
-//                    }
-//                }
             }
+        }
         }
         if(gpio=="yes"){
             // GPIO cutout
@@ -506,9 +517,12 @@ module fan_test(){
     translate([gpio=="yes" ? 4:0,model=="pi3a" ? 14:10,0]){
         difference(){
             union(){
-                translate([0,0,2.2]) linear_extrude(10) offset(2) offset(-2) square([fan_size,fan_size], center=true);
+                translate([0,0,0]) linear_extrude(3) offset(2) offset(-2) square([/*fan_size==25||fan_size==30 ? */fan_size/100*110/*:fan_size*/,/*fan_size==25||fan_size==30 ? */fan_size/100*110/*:fan_size*/], center=true);
+//                if(part=="test_fit"){
+//                    translate([0,0,3.1]) linear_extrude(10) offset(2) offset(-2) square([fan_size,fan_size], center=true);
+//                }
             }
-            linear_extrude(15) circle(d=fan_hole);
+            translate([0,0,-0.1])linear_extrude(15) circle(d=fan_hole);
             for(X=fan_holes*[1,-1], Y=fan_holes*[1,-1]){
                 translate([X,Y,0]) linear_extrude(20) circle(d=3.6);
             }
@@ -518,7 +532,7 @@ module fan_test(){
 
 module dc_text(){
     intersection(){
-        translate([model=="pi3a"&&gpio=="yes" ? 5:0,model=="pi3a" ? 14:0,0]){
+        translate([model=="pi3a"&&gpio=="yes" ? 4:0,model=="pi3a" ? 14:0,0]){
             if(line2==""){
                 translate([0,-30,1]) rotate([0,180,flip_text=="yes" ? 180:0]) linear_extrude(1) text(line1, text_size, font, halign="center", valign="center");
             }

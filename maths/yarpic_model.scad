@@ -56,6 +56,9 @@ if(dc_text=="yes"){
         else if(part=="top"){
             translate([0,model=="pi3a" ? -10:0,0]) dc_text();
         }
+        else if(part=="bottom"&&logo=="yes"){
+            translate([0,model=="pi3a" ? -10:0,0]) logo();
+        }
         else{}
     }
 }
@@ -313,7 +316,7 @@ module bottom(){
 
 module top(){
     fan_holes=((fan_size/100)*80)/2;
-    fan_hole=full_embed=="yes"&&(fan_size==25||fan_size==30) ? (fan_size/100)*90:(fan_size/100)*96; // Original: 95; for new non-conical embeds: 93
+    fan_hole=full_embed=="yes"&&(fan_size==25||fan_size==30) ? (fan_size/100)*90:(fan_size/100)*96;
     difference(){
         union(){
             difference(){
@@ -447,11 +450,8 @@ module top(){
         }
     }
         if(fan=="yes"){
-            // Fan screw embeds; have changed back to cones because of the small tolerances, added complexity, and reduced airflow in the new version.
+            // Fan screw embeds
             translate([gpio=="yes" ? 4:0,model=="pi3a" ? 14:10,0]){
-//                for(X=fan_holes*[-1,1], Y=fan_holes*[-1,1]) translate([X,Y,-1]){
-//                    cylinder(d1=8, d2=3.6, h=3.5);
-//                }
                 if(full_embed=="yes"){
                 for(X=fan_holes*[1,-1], Y=fan_holes*[1,-1]){
                     translate([X,Y,0]) cylinder(d=3.6, h=3);
@@ -504,10 +504,7 @@ module fan_test(){
     translate([gpio=="yes" ? 4:0,model=="pi3a" ? 14:10,0]){
         difference(){
             union(){
-                translate([0,0,0]) linear_extrude(3) offset(2) offset(-2) square([/*fan_size==25||fan_size==30 ? */fan_size/100*110/*:fan_size*/,/*fan_size==25||fan_size==30 ? */fan_size/100*110/*:fan_size*/], center=true);
-//                if(part=="test_fit"){
-//                    translate([0,0,3.1]) linear_extrude(10) offset(2) offset(-2) square([fan_size,fan_size], center=true);
-//                }
+                translate([0,0,0]) linear_extrude(3) offset(2) offset(-2) square([fan_size/100*110,fan_size/100*110], center=true);
             }
             translate([0,0,-0.1])linear_extrude(15) circle(d=fan_hole);
             for(X=fan_holes*[1,-1], Y=fan_holes*[1,-1]){

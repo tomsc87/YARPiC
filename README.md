@@ -1,3 +1,17 @@
+[UPDATE: 12/04/2020]
+
+All the customizability you've come to expect from YARPiC, but now in a smaller form factor. Here's what's new:
+
+<ul>
+<li>Added support for the Raspberry Pi 1 Model A+ and 3 Model A+.</li>
+<li>Lots of translates to make A+ work smoothly.</li>
+<li>Added option to fully embed screws on fans and/or corners.</li>
+<li>Removed most unused code.</li>
+<li>Tidied up code (especially most of the misplaced indents caused by commenting out sections of code).</li>
+</ul>
+
+As always, feedback would be much appreciated.
+
 [UPDATE: 30/03/2020]
 
 Minor update.

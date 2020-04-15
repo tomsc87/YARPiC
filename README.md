@@ -3,11 +3,11 @@
 All the customizability you've come to expect from YARPiC, but now in a smaller form factor. Here's what's new:
 
 <ul>
-<li>Added untested support for the Raspberry Pi 1 Model A+ and 3 Model A+. (My 3 A+ will arrive tomorrow, so I'll test it out then.)</li>
+<li>Added support for the Raspberry Pi 1 Model A+ and 3 Model A+.</li>
 <li>Lots of translates to make A+ work smoothly.</li>
+<li>Added option to fully embed screws on fans and/or corners.</li>
 <li>Removed most unused code.</li>
-<li>Tidied up code (especially all the misplaced indents caused by commenting out sections of code).</li>
-<li>Hidden NSX-Systems logo.</li>
+<li>Tidied up code (especially most of the misplaced indents caused by commenting out sections of code).</li>
 </ul>
 
 As always, feedback would be much appreciated.

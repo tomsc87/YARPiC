@@ -52,15 +52,9 @@ if(dc_text=="yes"){
     else{
         if(part=="both"){
             translate([-50,model=="pi3a" ? -10:0,0]) dc_text();
-            if(logo=="yes"){
-                translate([50,model=="pi3a" ? -10:0,0]) logo();
-            }
         }
         else if(part=="top"){
             translate([0,model=="pi3a" ? -10:0,0]) dc_text();
-        }
-        else if(part=="bottom"&&logo=="yes"){
-            translate([0,model=="pi3a" ? -10:0,0]) logo();
         }
         else{}
     }
@@ -79,8 +73,6 @@ if(screwtest=="yes"){
     screwtest();
 }
 else {}
-
-logo="no";
 
 module bottom(){
     difference(){
@@ -316,17 +308,12 @@ module bottom(){
         else{
             translate([0,43.5,3]) linear_extrude(4.5) square([15,3.5], center=true);
         }
-                // Logo
-        if(logo=="yes"){
-            logo();
-        }
-        else{}
     }
 }
 
 module top(){
     fan_holes=((fan_size/100)*80)/2;
-    fan_hole=(fan_size/100)*95; // Original: 95; for new non-conical embeds: 93
+    fan_hole=full_embed=="yes"&&(fan_size==25||fan_size==30) ? (fan_size/100)*90:(fan_size/100)*96; // Original: 95; for new non-conical embeds: 93
     difference(){
         union(){
             difference(){
@@ -513,7 +500,7 @@ module top(){
 
 module fan_test(){
     fan_holes=((fan_size/100)*80)/2;
-    fan_hole=(fan_size/100)*95;
+    fan_hole=full_embed=="yes"&&(fan_size==25||fan_size==30) ? (fan_size/100)*90:(fan_size/100)*96;
     translate([gpio=="yes" ? 4:0,model=="pi3a" ? 14:10,0]){
         difference(){
             union(){
@@ -595,12 +582,6 @@ module vesa(){
         }
         // Hollow out
         translate([0,model=="pi3a"&&corners=="yes" ? 10:0,2]) linear_extrude(30) offset(3) offset(-3) square([60,model=="pi3a" ? 68:88], center=true);
-        
-        // Logo
-        if(logo=="yes"){
-            translate([0,0,-0.1]) logo();
-        }
-        else{}
     }
 }
 
@@ -639,8 +620,4 @@ module nut_trap(){
         translate([4,0+6.204,0]) rotate([0,0,16.5]) linear_extrude(10) square([5,5.0475], center=true);
         translate([4,0-6.204,0]) rotate([0,0,-16.5]) linear_extrude(10) square([5,5.0475], center=true);
     }
-}
-
-module logo(){
-    rotate([180,0,90]) translate([model=="pi3a" ? 8:-3,0,-1]) linear_extrude(1) text("NSX-Systems.com", model=="pi3a" ? 7.5:9.5, "Agency FB:style=bold", halign="center", valign="center");
 }

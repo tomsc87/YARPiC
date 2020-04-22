@@ -6,20 +6,13 @@
 
 // DON'T TOUCH!! Important maths stuff. DON'T TOUCH!!
 
-// I wouldn't touch the rest either if I were you... it's a complete mess.
-
-if((rail=="yes")&&(corners=="yes")){
-    translate([0,12,0]) linear_extrude(2) text("Turn off either rail or corners.", halign="center", valign="center"); 
-}
-else{}
-
 if((rail=="yes")&&(vesa=="yes")){
     translate([0,0,0]) linear_extrude(2) text("Turn off either rail or vesa.", halign="center", valign="center");
 }
 else{}
 
 if(part=="bottom"){
-    if((rail=="yes")&&(corners=="yes"||vesa=="yes")||(dc_text=="yes")||(screwtest=="yes")){}
+    if(rail=="yes"&&vesa=="yes"||(dc_text=="yes")||(screwtest=="yes")){}
     else{
         translate([0,model=="pi3a" ? -10:0,0]) bottom();
     }
@@ -27,7 +20,7 @@ if(part=="bottom"){
 else {}
 
 if(part=="top"){
-    if((rail=="yes")&&(corners=="yes"||vesa=="yes")||(dc_text=="yes")||(screwtest=="yes")){}
+    if(rail=="yes"&&vesa=="yes"||(dc_text=="yes")||(screwtest=="yes")){}
     else{
         translate([0,model=="pi3a" ? -10:0,0]) top();
     }
@@ -35,7 +28,7 @@ if(part=="top"){
 else {}
 
 if(part=="both"){
-    if((rail=="yes")&&(corners=="yes"||vesa=="yes")||(dc_text=="yes")||(screwtest=="yes")){}
+    if(rail=="yes"&&vesa=="yes"||(dc_text=="yes")||(screwtest=="yes")){}
     else{
         translate([-50,model=="pi3a" ? -10:0,0]) top();
         translate([50,model=="pi3a" ? -10:0,0]) bottom();
@@ -55,9 +48,6 @@ if(dc_text=="yes"){
         }
         else if(part=="top"){
             translate([0,model=="pi3a" ? -10:0,0]) dc_text();
-        }
-        else if(part=="bottom"&&logo=="yes"){
-            translate([0,model=="pi3a" ? -10:0,0]) logo();
         }
         else{}
     }
@@ -101,9 +91,12 @@ module bottom(){
                                     if(rail=="yes"){
                                         difference(){
                                             union(){
-                                                translate([31,0,0]) linear_extrude(21) square([3,100], center=true);
+                                                translate([corners=="yes" ? 37:31,0,0]) linear_extrude(21) square([3,100], center=true);
                                             }
-                                            for (y=45*[1,-1]) translate([33.5,y,10.5]) rotate([0,-90,0]) linear_extrude(10) circle(d=3.5);
+                                            for (y=45*[1,-1]){
+                                                translate([corners=="yes" ? 39.5:33.5,y,10.5]) rotate([0,-90,0]) linear_extrude(10) circle(d=3.5);
+                                                translate([corners=="yes" ? 37:31,y,10.5]) rotate([0,-90,0]) linear_extrude(10) circle(d=6);
+                                            }
                                         }
                                     }
                                     else{}
@@ -126,9 +119,12 @@ module bottom(){
                                 if(rail=="yes"){
                                     difference(){
                                         union(){
-                                            translate([31,0,0]) linear_extrude(21) square([3,120], center=true);
+                                            translate([corners=="yes" ? 37:31,0,0]) linear_extrude(21) square([3,120], center=true);
                                         }
-                                        for (y=55*[1,-1]) translate([33.5,y,10.5]) rotate([0,-90,0]) linear_extrude(10) circle(d=3.5);
+                                        for (y=55*[1,-1]){
+                                           translate([corners=="yes" ? 39.5:33.5,y,10.5]) rotate([0,-90,0]) linear_extrude(10) circle(d=3.5);
+                                            translate([corners=="yes" ? 37:31,y,10.5]) rotate([0,-90,0]) linear_extrude(10) circle(d=6);
+                                        }
                                     }
                                 }
                                 else{}
@@ -324,36 +320,29 @@ module top(){
                     difference(){
                         union(){
                             if(bevel=="yes"){
-                                // Outer
                                 translate([0,model=="pi3a" ? 10:0,2.975]){
                                     difference(){
                                         union(){
+                                            // Outer
                                             minkowski(){
                                                 linear_extrude(8)  square([(59),(model=="pi3a" ? 68:88)], center=true);
                                                 sphere(3);
                                             }
                                         }
+                                        // Flatten the top
                                         translate([0,0,5]) linear_extrude(10) square([69,model=="pi3a" ? 78:98], center=true);
-                                    }
-                                    // Inner
-                                    difference(){
-                                        union(){
-                                            minkowski(){
-                                                linear_extrude(9.5)  square([55.4,model=="pi3a" ? 64.4:84.4], center=true);
-                                                sphere(3);
-                                            }
-                                        }
-                                        translate([0,0,6.5]) linear_extrude(10) square([69,model=="pi3a" ? 78:98], center=true);
                                     }
                                 }
                             }
                             else{
                                 // Case
                                 translate([0,model=="pi3a" ? 10:0,0]){
+                                    // Outer
                                     linear_extrude(8) offset(3) offset(-3) square([(65),(model=="pi3a" ? 74:94)], center=true);
-                                linear_extrude(9.5) offset(3) offset(-3)  square([62-0.5,model=="pi3a" ? 71-0.5:91-0.5], center=true);
                                 }
                             }
+                            // Lip
+                                  translate([0,model=="pi3a" ? 10:0,3]) linear_extrude(6.5) offset(3) offset(-3)  square([62-0.4,model=="pi3a" ? 71-0.4:91-0.4], center=true);
                         }
                     }
                     if(corners=="yes"){
@@ -403,7 +392,7 @@ module top(){
                         translate([0,0,-0.1])
                         intersection(){
                             cylinder(d=fan_hole,h=1+1,center=false);
-                            translate([-45/2, -45.5/2, 0])
+                            translate([-(45/2)/*-11.333*/, -45.5/2, 0])
                             for(i = [0 : fan_size / 8 * 2]){
                                 for(j = [0 : fan_size / 8 * 2]){
                                     translate([x * i, y * (j + 0.5 * (i % 2)), 0])

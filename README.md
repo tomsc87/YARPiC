@@ -1,3 +1,14 @@
+[UPDATE: 21/04/2020]
+
+Small update. Here's the changes:
+
+<ul>
+<li>Removed the restriction for rail and corners together.</li>
+<li>Added embedded screw hole to the rail.</li>
+<li>Added new corner/rail combination to examples.</li>
+<li>Changed the lip on the top of case so it no longer uses the Minkowski function (cuts about 2 seconds off the render time).</li>
+</ul>
+
 [UPDATE: 12/04/2020]
 
 All the customizability you've come to expect from YARPiC, but now in a smaller form factor. Here's what's new:

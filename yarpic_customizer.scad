@@ -2,7 +2,7 @@
 
 // To make it as simple as possible, I've split it into two parts: 1) a customizer (this document), and 2) another file that does all the hard work (maths/yarpic_model.scad). If I've done my job correctly, you shouldn't need to touch the latter (and see how much of a mess my coding is).
 
-// Anyway, I hope you find this easy to use and post your makes to Thingiverse. If you have any comments, complaints, or suggestions, feel free to leave a comment (here: https://www.thingiverse.com/thing:3464513, or here: http://github.com/tomsc87/YARPiC).
+// Anyway, I hope you find this easy to use and post your makes to Thingiverse. If you have any comments, complaints, or suggestions, feel free to leave a comment (here: https://www.thingiverse.com/thing:3464513, or here: https://github.com/tomsc87/YARPiC).
 
 include <maths/yarpic_model.scad>
 
@@ -29,16 +29,19 @@ $fn=24;
 /*[Bottom]*/
 
 // Add cooling slots on the rear (microSD side) wall.
-cooling_slots="no"; //[no:No,yes:Yes]
+cooling_slots="no"; //[no:None,back:Back,side:Side,both:Both]
 
 // Adds a 75*75 and 100*100 VESA mount to the bottom of the case. The 100*100 works with corners, but the 75*75 might be a bit close (I haven't actually tested it yet). Also, cannot be used with rail.
 vesa="no"; //[no:No,yes:Yes]
 
-// Adds mounting holes for 2020 aluminium (aluminum) extrusion V-slot so you can mount the case to a 3D printer that uses V-slots such as the Creality Ender 3 and Geeetech A10(M)/A20(M)/A30(M).
-rail="no"; //[no:No,yes:Yes]
+// Adds mounting holes for 2020 aluminium (aluminum) extrusion V-slot so you can mount the case to a 3D printer that uses V-slots such as the Creality Ender 3, Geeetech A10(M)/A20(M)/A30(M), or Original Prusa i3 MK3(S).
+rail="no"; //[no:None,side:Side,back:Back]
 
 // Thingiverse user mikegi wanted the option to have the SD card covered, so here it is.
 sd_card="yes"; //[yes:Yes,no:No]
+
+// Moves the side I/O cutout in for better HDMI clearance. Also adds spacing at back if you have sd_card set to "no".
+new_io="no"; //[no:No,yes:Yes]
 
 /*[Top]*/
 
@@ -69,10 +72,19 @@ line2="YourTextHere2";
 font="";
 
 // This is pretty obvious.
-text_size=6.5; //[5,5.5,6,6.5,7,7.5,8,8.5,9,9.5,10,10.5,11,11.5,12]
+text_size=6.5; //[5:0.5:13]
 
-// This rotates your text 180 degrees on the Z axis so whether you have your case port-side-forward ("No") or microSD-side-forward ("Yes"), the text will appear the right way round.
-flip_text="no"; //[no:No,yes:Yes]
+// Rotate text allows you to have more than just 0 and 180 degrees on the text.
+rotate_=0; // [-180:0.5:180]
+
+// This moves the text up (positive) and down (negative). Movement is absolute (i.e. relative to the case, not the text itself), so rotation will have no impact on the location. Another thing to note is that the text can go through the fan grill, but not the fan holes.
+move_y=0; // [-10:0.5:70]
+
+// This moves the text left (positive) and right (negative). (Yes, the slider is inverted, but there's not a lot I can do about that.)
+move_x=0; // [-10:0.5:10]
+
+// This adjusts the spacing between the two lines of text.
+spacing=0; //[-10:0.5:10]
 
 // This adds a dual colour option for text. Obviously, you have to render this separately from everything else.
 dc_text="no"; //[no:No,yes:Yes]

@@ -1,3 +1,19 @@
+[UPDATE: 13/01/2021]
+
+It's been a crazy 9 months. Happy new year. Hope you're all doing well. Most of my time was spent doing nothing with YARPiC; however, over the last 2 months, YARPiC has gone through quite a few revisions that I've been too busy to finalize and upload (or "commit" as I think I recall it being known as on the GitHubs).
+
+Anyway, here are the changes:
+
+<ul>
+<li>Option of a deeper side cutout to give better clearance to HDMI (because the Pi has to go in sideways with this option, I've added a cutout at the back when sd_card option is set to "no" to give clearance; if sd_card option is set to "yes", you can just insert the microSD card after installing the board) (only tested on Pi4B with corners option set to "yes"; might be some clearance problems with Pi3A and Pi3B with corners option set to "no" (I've tried to mitigate it, but, again, I haven't tested it)).</li>
+<li>Tapered board screw holes when corners option set to "yes" to better guide screws.</li>
+<li>(Almost) complete freedom to manipulate text; text can be moved anywhere and rotated any amount (in 0.5 degree increments); text can even be printed in the fan grill, but it won't cover the screw holes.</li>
+</ul>
+
+I think that's everything that's been changed. Might have moved the USB and ethernet slightly, but nothing major. Oh, and I finally got round to sorting out the indents (that was a pain in the arse).
+
+In the next update, I'll probably just tidy up the ports, which should get rid of between 50 and 70 lines of code. I was also working on a hinged cover for the microSD card; however, it was getting a bit too demanding, so I put that on hold; maybe that will be in the next update as well.
+
 [UPDATE: 21/04/2020]
 
 Small update. Here's the changes:

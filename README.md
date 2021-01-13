@@ -7,7 +7,9 @@ Anyway, here are the changes:
 <ul>
 <li>Option of a deeper side cutout to give better clearance to HDMI (because the Pi has to go in sideways with this option, I've added a cutout at the back when sd_card option is set to "no" to give clearance; if sd_card option is set to "yes", you can just insert the microSD card after installing the board) (only tested on Pi4B with corners option set to "yes"; might be some clearance problems with Pi3A and Pi3B with corners option set to "no" (I've tried to mitigate it, but, again, I haven't tested it)).</li>
 <li>Tapered board screw holes when corners option set to "yes" to better guide screws.</li>
-<li>(Almost) complete freedom to manipulate text; text can be moved anywhere and rotated any amount (in 0.5 degree increments); text can even be printed in the fan grill, but it won't cover the screw holes.</li>
+<li>(Almost) complete freedom to manipulate text; text can be moved anywhere and rotated any amount (in 0.5 degree increments); spacing between two lines of text can be increased or decreased; text can even be printed in the fan grill, but it won't cover the screw holes.</li>
+<li>Added option for rail mounting from rear (SD card side) of the case for better clearance when mounting to Prusa i3 printers.</li>
+<li>Option for cooling slots along the GPIO side of the case, as well as both the SD card side and GPIO side (untested).</li>
 </ul>
 
 I think that's everything that's been changed. Might have moved the USB and ethernet slightly, but nothing major. Oh, and I finally got round to sorting out the indents (that was a pain in the arse).

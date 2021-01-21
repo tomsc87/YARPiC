@@ -2,7 +2,7 @@
 
 // To make it as simple as possible, I've split it into two parts: 1) a customizer (../yarpic_customizer.scad), and 2) another file that does all the hard work (this file). If I've done my job correctly, you shouldn't need to touch the latter (and see how much of a mess my coding is).
 
-// Anyway, I hope you find this easy to use and post your makes to Thingiverse. If you have any comments, complaints, or suggestions, feel free to leave a comment (here: https://www.thingiverse.com/thing:3464513, or here: https://github.com/tomsc87/YARPiC).
+// Anyway, I hope you find this easy to use and post your makes to Thingiverse. If you have any comments, complaints, or suggestions, feel free to leave a comment (here: https://www.thingiverse.com/thing:3464513, or here: https://github.com/tomsc87/YARPiC ).
 
 // DON'T TOUCH!! Important maths stuff. DON'T TOUCH!!
 
@@ -74,62 +74,31 @@ module bottom(){
                 union(){
                     difference(){
                         union(){
-                            if(model=="pi3a"){
-                                translate([0,10,0]){
-                                    if(bevel=="yes"){
-                                        translate([0,0,2.975]){
-                                            minkowski(){
-                                                linear_extrude(27)  square([(59),(68)], center=true);
-                                                sphere(3);
-                                            }
-                                        }
+                            // Case
+                            if(bevel=="yes"){
+                                translate([0,model=="pi3a" ? 10:0,2.975]){
+                                    minkowski(){
+                                        linear_extrude(27)  square([59,(model=="pi3a" ? 68:88)], center=true);
+                                        sphere(3);
                                     }
-                                    else{
-                                        linear_extrude(27) offset(3) offset(-3) square([(65),(74)], center=true);
-                                    }
-                                    // V-slot
-                                    if(rail=="side"){
-                                        difference(){
-                                            union(){
-                                                translate([corners=="yes" ? 37:31,0,0]) linear_extrude(21) square([3,100], center=true);
-                                            }
-                                            for (y=45*[1,-1]){
-                                                translate([corners=="yes" ? 39.5:33.5,y,10.5]) rotate([0,-90,0]) linear_extrude(10) circle(d=3.6);
-                                                translate([corners=="yes" ? 37:31,y,10.5]) rotate([0,-90,0]) linear_extrude(10) circle(d=6);
-                                            }
-                                        }
-                                    }
-                                    else{}
                                 }
                             }
                             else{
-                                // Case
-                                if(bevel=="yes"){
-                                    translate([0,0,2.975]){
-                                        minkowski(){
-                                            linear_extrude(27)  square([(59),(88)], center=true);
-                                            sphere(3);
-                                        }
-                                    }
-                                }
-                                else{
-                                    linear_extrude(27) offset(3) offset(-3) square([(65),(94)], center=true);
-                                }
-                                // V-slot
-                                if(rail=="side"){
-                                    difference(){
-                                        union(){
-                                            translate([corners=="yes" ? 37:31,0,0]) linear_extrude(21) square([3,120], center=true);
-                                        }
-                                        for (y=55*[1,-1]){
-                                            translate([corners=="yes" ? 39.5:33.5,y,10.5]) rotate([0,-90,0]) linear_extrude(10) circle(d=3.6);
-                                            translate([corners=="yes" ? 37:31,y,10.5]) rotate([0,-90,0]) linear_extrude(10) circle(d=6);
-                                        }
-                                    }
-                                }
-                                else{}
+                                translate([0,model=="pi3a" ? 10:0,0]) linear_extrude(27) offset(3) offset(-3) square([65,model=="pi3a" ? 74:94], center=true);
                             }
-                            if(rail=="back"){
+                            // V-slot
+                            if(rail=="side"){
+                                difference(){
+                                    union(){
+                                        translate([corners=="yes" ? 37:31,model=="pi3a" ? 10:0,0]) linear_extrude(21) square([3,model=="pi3a" ? 100:120], center=true);
+                                    }
+                                    for (y=model=="pi3a" ? 45*[1,-1]:55*[1,-1]){
+                                        translate([corners=="yes" ? 39.5:33.5,model=="pi3a" ? 10+y:y,10.5]) rotate([0,-90,0]) linear_extrude(10) circle(d=3.6);
+                                        translate([corners=="yes" ? 37:31,model=="pi3a" ? 10+y:y,10.5]) rotate([0,-90,0]) linear_extrude(10) circle(d=6);
+                                    }
+                                }
+                            }
+                            else if(rail=="back"){
                                 difference(){
                                     union(){
                                         translate([0,corners=="yes" ? 50:45.5,0]) linear_extrude(corners=="yes" ? 17.5:21) square([95,3], center=true);
@@ -140,6 +109,7 @@ module bottom(){
                                     }
                                 }
                             }
+							else{}
                         }
                         // Rear holes for airflow
                         if(cooling_slots=="back"||cooling_slots=="both"){
@@ -153,75 +123,17 @@ module bottom(){
                             }
                         }
                         else{}
-                        if(model=="pi4"){
-                            // RJ-45 port
-                            translate([17.75,-45,6.5]) linear_extrude(14.5) square([17,16], center=true);
-                            // USB port
-                            translate([-10,-45,6.7]){
-                                for(x=-9*[1,-1]){
-                                    translate([x,0,0]) linear_extrude(17) square([15.5,16], center=true);
-                                }
-                            }
-                            // power port
-                            translate([-28,31.9,6]) linear_extrude(5.5) square([16,12.5], center=true);
-                            // HDMI port
-                            translate([-28,(19.5/2),4.5]){
-                                for(y=(13.5/2)*[1,-1]){
-                                    translate([0,y,0]) linear_extrude(7.6) square([16,11.2], center=true);
-                                }
-                            }
-                            // audio port
-                            translate([-28,-11.4,6.2]) linear_extrude(6.8) square([16,6.8], center=true);
-                            // Side cutout
-                            translate([new_io=="yes" ? -30:-35.75,11,6]){
-                                minkowski(){
-                                    linear_extrude(8.5) square([4,55], center=true);
-                                    sphere(3);
-                                }
-                            }
-                        }
-                        else if(model=="pi3b"){
-                            // RJ-45 port
-                            translate([-17.7,-45,6.5]) linear_extrude(14.5) square([17,16], center=true);
-                            // USB port
-                            translate([10,-45,6.4]){
-                                for(x=9*[1,-1]){
-                                    translate([x,0,0]) linear_extrude(17) square([16.5,16], center=true);
-                                }
-                            }
-                            // power port
-                            translate([-28,31.9,6.3]) linear_extrude(4) square([15,10], center=true);
-                            // HDMI port
-                            translate([-28,10.5,7.3]) linear_extrude(7) square([16,17], center=true);
-                            // audio port
-                            translate([-28,-11,6.3]) linear_extrude(6.6) square([16,6.6], center=true);
-                            // Side cutout
-                            translate([new_io=="yes" ? -30:-35.75,11,6]){
-                                minkowski(){
-                                    linear_extrude(12) square([4,55], center=true);
-                                    sphere(3);
-                                }
-                            }
-                        }
-                        else if(model=="pi3a"){
-                            // USB port
-                            translate([3.45,-25,6.6]) linear_extrude(8.5) square([16.5,16], center=true);
-                            // power port
-                            translate([-28,31.9,6.3]) linear_extrude(4) square([15,10], center=true);
-                            // HDMI port
-                            translate([-28,10.5,7.3]) linear_extrude(7) square([16,17], center=true);
-                            // audio port
-                            translate([-28,-11,6.3]) linear_extrude(6.6) square([16,6.6], center=true);
-                            // Side cutout
-                            translate([new_io=="yes" ? -30:-35.75,11,6]){
-                                minkowski(){
-                                    linear_extrude(12) square([4,55], center=true);
-                                    sphere(3);
-                                }
-                            }
-                            // Front cutout
-                            translate([3.45,-(68/2)+10,6.4]) linear_extrude(20) square([17,3], center=true);
-                        }
+						if(new_io=="no"){
+							side_io();
+						}
+						else{}
+						front_io();
+						translate([new_io=="yes" ? -30:-35.75,11,6]){
+							minkowski(){
+								linear_extrude(model=="pi4" ? 8.5:12) square([4,55], center=true);
+								sphere(3);
+							}
+						}
                     }
                     if(corners=="yes"){
                         // Corners
@@ -229,44 +141,25 @@ module bottom(){
                     }
                     else{}
                 }
-                if(model=="pi4"){
-                    // Front cutout
-                    translate([-0.5,-(88/2),6.4]) linear_extrude(20) square([55,3], center=true);
-                }
-                else{}
-                if(model=="pi3b"||model=="pi4"){
-                    // Hollow out for lid
-                    translate([0,0,25.25]) linear_extrude(10) offset(3) offset(-3) square([62,91], center=true);
-                    if(bevel=="yes"){
-                        // Cut off top
-                        translate([0,0,27]) linear_extrude(9) square([79,118], center=true);
-                        // Hollow out
-                        minkowski(){
-                            translate([0,0,5]) linear_extrude(30) square([59-5.5,88-5.5], center=true);
-                            sphere(3);
-                        }
-                    }
-                    else{
-                        translate([0,0,2]) linear_extrude(30) offset(3) offset(-3) square([59.5,88.5], center=true);
-                    }
-                }
-                else if(model=="pi3a"){
-                    // Hollow out for lid
-                    translate([0,10,25.25]) linear_extrude(10) offset(3) offset(-3) square([62,71], center=true);
-                    if(bevel=="yes"){
-                        // Cut off top
-                        translate([0,10,27]) linear_extrude(9) square([79,98], center=true);
-                        // Hollow out
-                        minkowski(){
-                            translate([0,10,5]) linear_extrude(30) square([59-5.5,68-5.5], center=true);
-                            sphere(3);
-                        }
-                    }
-                    else{
-                        translate([0,10,2]) linear_extrude(30) offset(3) offset(-3) square([59.5,68.5], center=true);
-                    }
-                }
-                else{}
+				if(model=="pi4"||model=="pi3a"){
+					// Front cutout
+					translate([model=="pi3a" ? 3.45:-0.5,model=="pi3a" ? -24:-44,6.4]) linear_extrude(20) square([model=="pi3a" ? 17:55,3], center=true);
+				}
+				else{}
+				// Hollow out for lid
+				translate([0,model=="pi3a" ? 10:0,25.25]) linear_extrude(10) offset(3) offset(-3) square([62,model=="pi3a" ? 71:91], center=true);
+				if(bevel=="yes"){
+					// Cut off top
+					translate([0,model=="pi3a" ? 10:0,27]) linear_extrude(9) square([79,model=="pi3a" ? 98:118], center=true);
+					// Hollow out
+					minkowski(){
+						translate([0,model=="pi3a" ? 10:0,5]) linear_extrude(30) square([53.5,model=="pi3a" ? 62.5:82.5], center=true);
+						sphere(3);
+					}
+				}
+				else{
+					translate([0,model=="pi3a" ? 10:0,2]) linear_extrude(30) offset(3) offset(-3) square([59.5,model=="pi3a" ? 68.5:88.5], center=true);
+				}
                 if(corners=="yes"){ // I could add all this to the nut_trap() module, but it adds about 10 seconds to the render time.
                     translate([0,model=="pi3a" ? 10:0,0]){
                         for(X=33*[-1,1], Y=model=="pi3a" ? 36*[-1,1]:46*[-1,1]){
@@ -322,73 +215,29 @@ module bottom(){
             translate([0,51,-1]) linear_extrude(7.7) square([15,21], center=true);
         }
     }
-    if(model=="pi4"&&new_io=="yes"){
-        difference(){
-            union(){
-                translate([-33.2,11,4.5]){
-                    difference(){
-                        minkowski(){
-                            linear_extrude(11.5) square([4,57], center=true);
-                            sphere(3);
-                        }
-                        translate([-3.25,0,-3.0]) linear_extrude(18) square([10,64], center=true);
-                    }
-                }
-            }
-            translate([-34.35,11,5.85]){
-                minkowski(){
-                    linear_extrude(8.8) square([4,55.4], center=true);
-                    sphere(3);
-                }
-            }
-            // power port
-            translate([-28,31.9,6]) linear_extrude(5.5) square([16,12.5], center=true);
-            // HDMI port
-            translate([-28,(19.5/2),5.8]){
-                for(y=(13.5/2)*[1,-1]){
-                    translate([0,y,0]) linear_extrude(5) square([16,9], center=true);
-                }
-            }
-            // audio port
-            translate([-28,-11.4,6.2]) linear_extrude(6.8) square([16,6.8], center=true);
-            if(corners=="no"){
-                rotate([0,180,0]) translate([0,0,-35]) top();
-            }
-            else{}
-        }
-    }
-    else if((model=="pi3b"||model=="pi3a")&&new_io=="yes"){
-        difference(){
-            union(){
-                translate([-33.2,11,4.5]){
-                    difference(){
-                        minkowski(){
-                            linear_extrude(15) square([4,57], center=true);
-                            sphere(3);
-                        }
-                        translate([-3.25,0,-3.0]) linear_extrude(21) square([10,64], center=true);
-                    }
-                }
-            }
-            translate([-34.35,11,5.85]){
-                minkowski(){
-                    linear_extrude(12.4) square([4,55.4], center=true);
-                    sphere(3);
-                }
-            }
-            // power port
-            translate([-28,31.9,6.3]) linear_extrude(4) square([15,10], center=true);
-            // HDMI port
-            translate([-28,10.5,7.3]) linear_extrude(7) square([16,17], center=true);
-            // audio port
-            translate([-28,-11,6.3]) linear_extrude(6.6) square([16,6.6], center=true);
-            if(corners=="no"){
-                rotate([0,180,0]) translate([0,0,-35]) top();
-            }
-            else{}
-        }
-    }
-    else{}
+	if(new_io=="yes"){
+		difference(){
+			union(){
+				translate([model=="pi4" ? -33.2:-33.5,11,4.5]){
+					difference(){
+						minkowski(){
+							linear_extrude(model=="pi4" ? 11.5:15) square([4,57], center=true);
+							sphere(3);
+						}
+                        translate([-3.25,0,-3.0]) linear_extrude(model=="pi4" ? 18:21) square([10,64], center=true);
+					}
+				}
+			}
+			translate([-34.35,11,5.85]){
+				minkowski(){
+					linear_extrude(model=="pi4" ? 8.8:12.4) square([4,56], center=true);
+					sphere(3);
+				}
+			}
+			side_io();
+		}
+	}
+	else{}
 }
 
 module top(){
@@ -620,7 +469,6 @@ module vesa(){
     }
 }
 
-
 module screwtest(){
     difference(){
         union(){
@@ -668,4 +516,39 @@ module text_(){
             translate([0,-5-spacing,1]) rotate([0,180,0]) linear_extrude(1) text(line2, text_size, font, halign="center", valign="center");
         }
     }
+}
+
+module side_io(){
+	// power port
+	translate([-28,31.9,model=="pi4" ? 6:6.3]) linear_extrude(model=="pi4" ? 5.5:4) square([16,model=="pi4" ? 12.5:10], center=true);
+	// HDMI port
+	if(model=="pi4"){
+		translate([-28,(19.5/2),new_io=="yes" ? 5.8:4.5]){
+			for(y=(13.5/2)*[1,-1]){
+				translate([0,y,0]) linear_extrude(new_io=="yes" ? 5:7.6) square([16,new_io=="yes" ? 9:11.2], center=true);
+			}
+		}
+	}
+	else{
+		translate([-28,10.5,7.3]) linear_extrude(7) square([16,17], center=true);
+	}
+	// audio port
+	translate([-28,model=="pi4" ? -11.4:-11,model=="pi4" ? 6.2:6.3]) linear_extrude(model=="pi4" ? 6.8:6.6) square([16,model=="pi4" ? 6.8:6.6], center=true);
+}
+
+module front_io(){
+	if(model=="pi4"||model=="pi3b"){
+		// RJ-45 port
+		translate([model=="pi4" ? 17.75:-17.75,-45,6.5]) linear_extrude(14.5) square([17,16], center=true);
+		// USB port
+		translate([model=="pi4" ? -10:10,-45,6.4]){
+			for(x=9*[1,-1]){
+				translate([x,0,0]) linear_extrude(17) square([15.5,16], center=true);
+			}
+		}
+	}
+	else{
+		// USB port
+		translate([3.45,-25,6.6]) linear_extrude(8.5) square([16.5,16], center=true);
+	}
 }

@@ -1,3 +1,19 @@
+[UPDATE: 21/01/2021]
+
+Just a small update, with no new features, but tidied up the code.
+
+Here are the changes:
+
+<ul>
+<li>Ports for different models merged together. (Using mostly inline conditionals, but some nested conditionals where needed.)</li>
+<li>Moved front and side ports into separate modules. (So you don't have to render ports twice when new_io is set to "yes".)</li>
+<li>Using inline conditional for building the main body of bottom() instead of nested conditional. (Had already done this for top(), but never got round to doing it for bottom().)</li>
+</ul>
+
+In all, 109 lines of code have been removed in this update.
+
+Still working on a hinged cover for the microSD card. Might commit that to a new branch tomorrow.
+
 [UPDATE: 13/01/2021]
 
 It's been a crazy 9 months. Happy new year. Hope you're all doing well. Most of my time was spent doing nothing with YARPiC; however, over the last 2 months, YARPiC has gone through quite a few revisions that I've been too busy to finalize and upload (or "commit" as I think I recall it being known as on the GitHubs).

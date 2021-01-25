@@ -40,7 +40,7 @@ rail="no"; //[no:None,side:Side,back:Back]
 // Thingiverse user mikegi wanted the option to have the SD card covered, so here it is.
 sd_card="open"; //[open:Open,closed:Closed,cover:"Covered (experimental)"]
 
-// Moves the side I/O cutout in for better HDMI clearance. Only works with Pi4 at the moment. Also adds spacing at back so you can insert your Pi without removing the SD card (very important if you have the SD card slot covered).
+// Moves the side I/O cutout in for better HDMI clearance. Also adds spacing at back if you have sd_card set to "closed".
 new_io="no"; //[no:No,yes:Yes]
 
 /*[Top]*/

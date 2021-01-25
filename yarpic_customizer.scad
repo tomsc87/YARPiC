@@ -2,7 +2,7 @@
 
 // To make it as simple as possible, I've split it into two parts: 1) a customizer (this document), and 2) another file that does all the hard work (maths/yarpic_model.scad). If I've done my job correctly, you shouldn't need to touch the latter (and see how much of a mess my coding is).
 
-// Anyway, I hope you find this easy to use and post your makes to Thingiverse. If you have any comments, complaints, or suggestions, feel free to leave a comment (here: https://www.thingiverse.com/thing:3464513, or here: https://github.com/tomsc87/YARPiC).
+// Anyway, I hope you find this easy to use and post your makes to Thingiverse. If you have any comments, complaints, or suggestions, feel free to leave a comment (here: https://www.thingiverse.com/thing:3464513, or here: http://github.com/tomsc87/YARPiC).
 
 include <maths/yarpic_model.scad>
 
@@ -38,9 +38,9 @@ vesa="no"; //[no:No,yes:Yes]
 rail="no"; //[no:None,side:Side,back:Back]
 
 // Thingiverse user mikegi wanted the option to have the SD card covered, so here it is.
-sd_card="yes"; //[yes:Yes,no:No]
+sd_card="open"; //[open:Open,closed:Closed,cover:"Covered (experimental)"]
 
-// Moves the side I/O cutout in for better HDMI clearance. Also adds spacing at back if you have sd_card set to "no".
+// Moves the side I/O cutout in for better HDMI clearance. Only works with Pi4 at the moment. Also adds spacing at back so you can insert your Pi without removing the SD card (very important if you have the SD card slot covered).
 new_io="no"; //[no:No,yes:Yes]
 
 /*[Top]*/
@@ -94,4 +94,4 @@ dc_text="no"; //[no:No,yes:Yes]
 // After changing hotend and nozzle on my printer, I was having problems with the screw holes for the top not being tight enough to grip the screws. Instead of printing out a new top every time, I made a test to get the right size.
 // Print this out and then change the variable "screw_hole" if your screws are too tight (increase the variable) or too loose (decrease the variable) until the screws fit snugly.
 screwtest="no"; //[no:No,yes:Yes]
-screw_hole=2.75;
+screw_hole=2.45;

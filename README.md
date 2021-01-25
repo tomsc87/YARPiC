@@ -1,3 +1,17 @@
+[UPDATE: 25/01/2021]
+
+Today, I bring you the long-awaited hinged cover for the microSD card slot. It's still experimental, and you may need to adjust your horizontal expansion settings in your slicer software. It is rather slap-dash at the moment, so it increases render times by between 20 and 25% compared with the "Open" option, but I will refine it over time.
+
+Here are all the changes:
+
+<ul>
+<li>Changed sd_card options to include the hinged cover. ("Yes" is now "Open", "No" is now "Closed", and added "Cover (experimental)" for the hinged cover.)</li>
+<li>Updated the .json file.</li>
+<li>Minor bug fixes.</li>
+</ul>
+
+In the next update, I hope to refine the microSD card cover enough so you can print out a test of it without having to waste time and material by printing out a full case to get your horizontal expansion settings dialled in. I might also add an option for a camera ribbon cable cutout in the top of the case as well as camera mounting options; however, they're low on my priorities list right now.
+
 [UPDATE: 21/01/2021]
 
 Just a small update, with no new features, but tidied up the code.

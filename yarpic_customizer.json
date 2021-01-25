@@ -109,7 +109,7 @@
             "rail": "no",
             "screw_hole": "2.75",
             "screwtest": "no",
-            "sd_card": "yes",
+            "sd_card": "open",
             "text_size": "8.5",
             "vesa": "yes"
         },
@@ -137,7 +137,7 @@
             "rotate_": "0",
             "screw_hole": "2.75",
             "screwtest": "no",
-            "sd_card": "yes",
+            "sd_card": "cover",
             "spacing": "0",
             "text_size": "12",
             "vesa": "yes"

@@ -11,8 +11,13 @@ if((rail=="side"||rail=="back")&&(vesa=="yes")){
 }
 else{}
 
+if(rail=="back"&&sd_card=="cover"){
+	translate([0,0,0]) linear_extrude(2) text("Turn off either back rail or SD cover.", halign="center", valign="center");
+}
+else{}
+
 if(part=="bottom"){
-	if((rail=="side"||rail=="back")&&vesa=="yes"||(dc_text=="yes")||(screwtest=="yes")){}
+	if((rail!="no"&&vesa=="yes")||(dc_text=="yes")||(screwtest=="yes")||(rail=="back"&&sd_card=="cover")){}
     else{
         translate([0,model=="pi3a" ? -10:0,0]) bottom();
     }
@@ -28,7 +33,7 @@ if(part=="top"){
 else {}
 
 if(part=="both"){
-    if((rail=="side"||rail=="back")&&vesa=="yes"||(dc_text=="yes")||(screwtest=="yes")){}
+    if((rail=="side"||rail=="back")&&vesa=="yes"||(dc_text=="yes")||(screwtest=="yes")||(rail=="back"&&sd_card=="cover")){}
     else{
         translate([-50,model=="pi3a" ? -10:0,0]) top();
         translate([50,model=="pi3a" ? -10:0,0]) bottom();
@@ -78,7 +83,7 @@ module bottom(){
                             if(bevel=="yes"){
                                 translate([0,model=="pi3a" ? 10:0,2.975]){
                                     minkowski(){
-                                        linear_extrude(27)  square([59,(model=="pi3a" ? 68:88)], center=true);
+                                        linear_extrude(27)  square([59,model=="pi3a" ? 68:88], center=true);
                                         sphere(3);
                                     }
                                 }
@@ -114,12 +119,12 @@ module bottom(){
                         // Rear holes for airflow
                         if(cooling_slots=="back"||cooling_slots=="both"){
                             rotate([90,0,0]) translate([0,14,-48]){
-                                linear_extrude(6) for(X=3.25*[-1,1,-3,3,-5,5,-7,7], Y=2.5) translate([X,Y,-1]) offset(1) offset(-1) square([4,15], center=true); // As awful as this is with the rotate, it's a LOT better than the alternative (minkowski).
+                                linear_extrude(6) for(X=[-22.75:6.5:22.75], Y=2.5) translate([X,Y,-1]) offset(1) offset(-1) square([4,15], center=true); // As awful as this is with the rotate, it's a LOT better than the alternative (minkowski).
                             }
                         }
                         if(cooling_slots=="side"||cooling_slots=="both"){
                             translate([29,model=="pi3a" ? 10:0,17]) rotate([0,90,0]){
-                                linear_extrude(6) for(Y=model=="pi3a" ? 3.25*[-1,1,-3,3,-5,5,-7,7]:3.25*[-1,1,-3,3,-5,5,-7,7,-9,9,-11,11]) translate([0,Y,0]) offset(1) offset(-1) square([15,4], center=true);
+                                linear_extrude(6) for(Y=model=="pi3a" ? [-22.75:6.5:22.75]:[-35.75:6.5:35.75]) translate([0,Y,0]) offset(1) offset(-1) square([15,4], center=true);
                             }
                         }
                         else{}
@@ -175,6 +180,23 @@ module bottom(){
                 }
                 else{}
             }
+            // Hinge
+            if(sd_card=="cover"){
+                translate([0,36,1.9]){
+                    difference(){
+                        minkowski(){
+							// Hinge cover
+                            linear_extrude(1) square([18,2], center=true);
+                            sphere(1.5);
+                        }
+                        translate([0,0,1.5]) linear_extrude(1) square([15,6], center=true);
+                            rotate([40,0,0]) translate([0,0,1.5]) linear_extrude(5) square([15,10], center=true);
+                        translate([0,0,1.9]) linear_extrude(1) square([21,6], center=true);
+                    }
+                    
+                }
+            }
+            else{}
             // Stand offs
             translate([0,10,1.9]){
                 for(X=24.5*[-1,1], Y=29*[-1,1]){
@@ -207,13 +229,30 @@ module bottom(){
                 }
             }
         }
-        if(sd_card=="no"||rail=="back"){
-            translate([0,40,3]) linear_extrude(new_io=="yes" ? 35:4.5) square([15,11], center=true);
+        if(sd_card!="open"||rail=="back"){
+            translate([0,43,3]) linear_extrude(new_io=="yes"&&sd_card=="closed" ? 35:4.5) square([15,5], center=true);
         }
         else{
             // microSD card slot
             translate([0,51,-1]) linear_extrude(7.7) square([15,21], center=true);
+			
         }
+		// microSD card cover
+		if(sd_card=="cover"){
+			for(x=7.25*[1,-1]){
+				// cutout
+				translate([x,41.625,-1]) linear_extrude(7.8) square([0.5,16], center=true);
+				translate([x,36,1.9]) sphere(1.5);
+			}
+			translate([0,34,-1]) linear_extrude(7.8) square([15,0.75], center=true);
+			translate([0,45,6.8]) linear_extrude(0.8) square([15,10], center=true);		
+			for(x=7*[1,-1]){
+				// Latch holes
+				translate([x, 45.3, 2]) sphere(d=2);
+				// Hinge holes
+			}
+		}
+		else{}									  
     }
 	if(new_io=="yes"){
 		difference(){
@@ -228,7 +267,7 @@ module bottom(){
 					}
 				}
 			}
-			translate([-34.35,11,5.85]){
+			translate([model=="pi4" ? -34.35:-34.65,11,5.85]){
 				minkowski(){
 					linear_extrude(model=="pi4" ? 8.8:12.4) square([4,56], center=true);
 					sphere(3);
@@ -236,6 +275,10 @@ module bottom(){
 			}
 			side_io();
 		}
+	}
+	else{}
+	if(sd_card=="cover"){
+		sdcover();
 	}
 	else{}
 }
@@ -255,7 +298,7 @@ module top(){
                                         union(){
                                             // Outer
                                             minkowski(){
-                                                linear_extrude(8)  square([(59),(model=="pi3a" ? 68:88)], center=true);
+                                                linear_extrude(8)  square([59,model=="pi3a" ? 68:88], center=true);
                                                 sphere(3);
                                             }
                                         }
@@ -323,11 +366,11 @@ module top(){
                             intersection(){
                                 cylinder(d=fan_hole,h=1+1,center=false);
                                 translate([-16.9, -19.5, 0])
-                                for(i = [0 : fan_size / 8 * (fan_size==40?1.25:fan_size==30?1.5:2)]){
-                                    for(j = [0 : fan_size / 8 * (fan_size==40?1.25:1.5)]){
+                                for(i=[0:fan_size/8*(fan_size==40?1.25:fan_size==30?1.5:2)],j=[0:fan_size/8*(fan_size==40?1.25:1.5)]){
+//                                    for(j = [0 : fan_size / 8 * (fan_size==40?1.25:1.5)]){
                                         translate([x * i, y * (j + 0.5 * (i % 2)), 0])
                                         linear_extrude(2) circle(d = grill, $fn = 6);
-                                    }
+//                                    }
                                 }
                             }
                         }
@@ -514,6 +557,25 @@ module text_(){
         else{
             translate([0,5+spacing,1]) rotate([0,180,0]) linear_extrude(1) text(line1, text_size, font, halign="center", valign="center");
             translate([0,-5-spacing,1]) rotate([0,180,0]) linear_extrude(1) text(line2, text_size, font, halign="center", valign="center");
+        }
+    }
+}
+
+module sdcover(){
+    // microSD card cover
+    difference(){
+		union(){
+			translate([-7,45.3,2]) rotate([0,90,0]) cylinder(h=14, d=2);
+			translate([0,47,5.8]) linear_extrude(1) square([14,2], center=true);
+			translate([-7,47,5.2]) rotate([0,90,0]) linear_extrude(14) circle(d=2.4, $fn=3);
+			translate([0,36,0]){
+				for(x=7*[1,-1]){
+					// Latch
+					translate([x,9.3,2]) sphere(d=1.75);
+					// Hinge
+					translate([x,0,1.9]) sphere(1.5);
+				}
+			}
         }
     }
 }

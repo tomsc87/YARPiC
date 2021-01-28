@@ -56,6 +56,8 @@ fan_size=40; //[25,30,40]
 
 // This option allows you to fully embed the fan and/or corner screws for a cleaner look. (Might not work with 25mm fans.)
 full_embed="no"; //[yes:Yes,no:No]
+// Thingiverse user Gregkster suggested a cutout for a camera ribbon cable, so that's what I've done. Unfortunately, I have no camera mounting options, yet; however, I might do that in a future update.
+camera="no"; //[yes:Yes,no:No]
 
 /*[Text options]*/
 
@@ -90,6 +92,9 @@ spacing=0; //[-10:0.5:10]
 dc_text="no"; //[no:No,yes:Yes]
 
 /*[Test]*/
+
+// If you want to use the "Covered" option for sd_card, it's recommended that you print a sample of the hinge so you can dial in your slicer's horizontal expansion settings. It should take up to 20 minutes to print, and it's better than spending 7 hours on a print that's wasted because the cover won't open or is too loose.
+hingetest="no"; //[no:No,yes:Yes]
 
 // After changing hotend and nozzle on my printer, I was having problems with the screw holes for the top not being tight enough to grip the screws. Instead of printing out a new top every time, I made a test to get the right size.
 // Print this out and then change the variable "screw_hole" if your screws are too tight (increase the variable) or too loose (decrease the variable) until the screws fit snugly.

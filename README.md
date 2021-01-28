@@ -1,3 +1,19 @@
+[UPDATE: 28/01/2021]
+
+This should be the final update of January 2021 (and for a while).
+
+Here's what's changed:
+
+<ul>
+<li>Moved all hinge parts into modules.</li>
+<li>Created a test part for hinge so you can dial in horizontal expansion settings without having to print out a whole case.</li>
+<li>Refined hinge slightly.</li>
+<li>Added cutout for camera ribbon cable. (Suggested by Thingiverse user <a href="https://www.thingiverse.com/gregkster/designs"target="_blank">Gregkster</a>.)</li>
+<li>Updated .json file.</li>
+</ul>
+
+Future updates will come few and far between. I have some ideas; however, they'll take some time and will likely require a complete redesign.
+
 [UPDATE: 25/01/2021]
 
 Today, I bring you the long-awaited hinged cover for the microSD card slot. It's still experimental, and you may need to adjust your horizontal expansion settings in your slicer software. It is rather slap-dash at the moment, so it increases render times by between 20 and 25% compared with the "Open" option, but I will refine it over time.

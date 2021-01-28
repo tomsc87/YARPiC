@@ -8,7 +8,7 @@ Here's what's changed:
 <li>Moved all hinge parts into modules.</li>
 <li>Created a test part for hinge so you can dial in horizontal expansion settings without having to print out a whole case.</li>
 <li>Refined hinge slightly.</li>
-<li>Added cutout for camera ribbon cable. (Suggested by Thingiverse user <a href="https://www.thingiverse.com/gregkster/designs"target="_blank">Gregkster</a>.)</li>
+<li>Added cutout for camera ribbon cable. (Suggested by Thingiverse user <a href="https://www.thingiverse.com/gregkster/designs" target="_blank">Gregkster</a>.)</li>
 <li>Updated .json file.</li>
 </ul>
 

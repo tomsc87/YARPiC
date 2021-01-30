@@ -1,3 +1,14 @@
+[UPDATE: 30/01/2021]
+
+Okay, I lied. This really will be the final update of January 2021 (and for a while).
+
+<ul>
+<li>Added the option for double fans (some restrictions apply), which was suggested by Thingiverse user <a href="https://www.thingiverse.com/muga/" target="_blank">Muga</a>.</li>
+<li>Changed the camera cutout slightly (you can't have it when you have double fans).</li>
+</ul>
+
+That's it. No more updates until my big overhaul.
+
 [UPDATE: 28/01/2021]
 
 This should be the final update of January 2021 (and for a while).

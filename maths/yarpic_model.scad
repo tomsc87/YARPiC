@@ -349,27 +349,30 @@ module top(){
                 else{
                     translate([0,model=="pi3a" ? 10:0,2]) linear_extrude(8) offset(3) offset(-3) square([59,model=="pi3a" ? 68:88], center=true);
                 }
-                if(fan=="yes"&&dc_text=="no"){
-                    translate([gpio=="yes" ? 4:0,model=="pi3a" ? 14:10,0]){
-                        // Fan Hole
-                        translate([0,0,1]) linear_extrude(5) circle(d=fan_hole);
-                        // Holes for mesh
-                        grill = (fan_size / 1.1) / (fan_size / 8) - 1.5;
-                        x = (grill * 0.75 + 1.5 * sqrt(3) / 2);
-                        y = (grill / 2 * sqrt(3) + 1.5);
-                        translate([0,0,-0.1]){
-                            intersection(){
-                                cylinder(d=fan_hole,h=1+1,center=false);
-                                translate([-16.9, -19.5, 0])
-                                for(i=[0:fan_size/8*(fan_size==40?1.25:fan_size==30?1.5:2)],j=[0:fan_size/8*(fan_size==40?1.25:1.5)]){
-//                                    for(j = [0 : fan_size / 8 * (fan_size==40?1.25:1.5)]){
-                                        translate([x * i, y * (j + 0.5 * (i % 2)), 0])
-                                        linear_extrude(2) circle(d = grill, $fn = 6);
-//                                    }
-                                }
-                            }
-                        }
-                    }
+                if(fan!="no"){
+                    translate([gpio=="yes" ? 3:0,model=="pi3a" ? 14:10,0]){
+						// Experimental double fan
+						for(y=fan=="double"&&fan_size!=40&&model!="pi3a"||fan=="double"&&fan_size==25&&model=="pi3a" ? ((fan_size/2)+1)*[1,-1]:0*[1]){
+							translate([0,y,0]){
+								// Fan Hole
+								translate([0,0,1]) linear_extrude(5) circle(d=fan_hole);
+								// Holes for mesh
+								grill = (fan_size / 1.1) / (fan_size / 8) - 1.5;
+								x = (grill * 0.75 + 1.5 * sqrt(3) / 2);
+								y = (grill / 2 * sqrt(3) + 1.5);
+								translate([0,0,-0.1]){
+									intersection(){
+										cylinder(d=fan_hole,h=1+1,center=false);
+										translate([-16.9, -19.5, 0])
+										for(i=[0:fan_size/8*(fan_size==40?1.25:fan_size==30?1.5:2)],j=[0:fan_size/8*(fan_size==40?1.25:1.5)]){
+											translate([x * i, y * (j + 0.5 * (i % 2)), 0])
+											linear_extrude(2) circle(d = grill, $fn = 6);
+										}
+									}
+								}
+							}
+						}
+					}
                 }
             }
             if(corners=="yes"){}
@@ -391,63 +394,73 @@ module top(){
                     }
                 }
             }
-            if(full_embed=="yes"&&fan=="yes"){
-                                translate([0,0,2]) fan_test();
-                            }
-                            else{}
+            if(full_embed=="yes"&&fan!="no"){
+				// Experimental double fan
+				for(y=fan=="double"&&fan_size!=40&&model!="pi3a"||fan=="double"&&fan_size==25&&model=="pi3a" ? ((fan_size/2)+1)*[1,-1]:0*[1]){
+					translate([0,y,0]){
+						translate([0,0,2]) fan_test();
+					}
+				}
+			}
+			else{}
         }
         if(add_text=="yes"&&dc_text=="no"){
             translate([model=="pi3a"&&gpio=="yes" ? 4:0,model=="pi3a" ? -14:-30,0]){
                 translate([move_x,move_y,0])text_();
             }
         }
-        if(fan=="yes"){
-            // Fan screw embeds
-            translate([gpio=="yes" ? 4:0,model=="pi3a" ? 14:10,0]){
-                if(full_embed=="yes"){
-                    for(X=fan_holes*[1,-1], Y=fan_holes*[1,-1]){
-                        translate([X,Y,0]) cylinder(d=3.6, h=3);
-                        translate([X,Y,0]) cylinder(d=6, h=3);
-                    }
-                    for(X=fan_holes*[-1], Y=fan_holes*[1], R=45){
-                        translate([X,Y,3]) rotate([0,0,R]){
-                            linear_extrude(layer_height*2) square([4.75,3.6], center =true);
-                            linear_extrude(layer_height*4) square([3.6,3.6], center=true);
-                        }
-                    }
-                    for(X=fan_holes*[1], Y=fan_holes*[-1], R=45){
-                        translate([X,Y,3]) rotate([0,0,R]){
-                            linear_extrude(layer_height*2) square([4.75,3.6], center =true);
-                            linear_extrude(layer_height*4) square([3.6,3.6], center=true);
-                        }
-                    }
-                    for(X=fan_holes*[1], Y=fan_holes*[1], R=-45){
-                        translate([X,Y,3]) rotate([0,0,R]){
-                            linear_extrude(layer_height*2) square([4.75,3.6], center =true);
-                            linear_extrude(layer_height*4) square([3.6,3.6], center=true);
-                        }
-                    }
-                    for(X=fan_holes*[-1], Y=fan_holes*[-1], R=-45){
-                        translate([X,Y,3]) rotate([0,0,R]){
-                            linear_extrude(layer_height*2) square([4.75,3.6], center =true);
-                            linear_extrude(layer_height*4) square([3.6,3.6], center=true);
-                        }
-                    }
-                }
-                else{
-                    for(X=fan_holes*[-1,1], Y=fan_holes*[-1,1]) translate([X,Y,-1]){
-                        cylinder(d1=8, d2=3.6, h=3.5);
-                    }
-                }
+        if(fan!="no"){
+			// Experimental double fan
+			for(y=fan=="double"&&fan_size!=40&&model!="pi3a"||fan=="double"&&fan_size==25&&model=="pi3a" ? ((fan_size/2)+1)*[1,-1]:0*[1]){
+				translate([0,y,0]){
+					// Fan screw embeds
+					translate([gpio=="yes" ? 3:0,model=="pi3a" ? 14:10,0]){
+						if(full_embed=="yes"){
+							for(X=fan_holes*[1,-1], Y=fan_holes*[1,-1]){
+								translate([X,Y,0]) cylinder(d=3.6, h=3);
+								translate([X,Y,0]) cylinder(d=6, h=3);
+							}
+							for(X=fan_holes*[-1], Y=fan_holes*[1], R=45){
+								translate([X,Y,3]) rotate([0,0,R]){
+									linear_extrude(layer_height*2) square([4.75,3.6], center =true);
+									linear_extrude(layer_height*4) square([3.6,3.6], center=true);
+								}
+							}
+							for(X=fan_holes*[1], Y=fan_holes*[-1], R=45){
+								translate([X,Y,3]) rotate([0,0,R]){
+									linear_extrude(layer_height*2) square([4.75,3.6], center =true);
+									linear_extrude(layer_height*4) square([3.6,3.6], center=true);
+								}
+							}
+							for(X=fan_holes*[1], Y=fan_holes*[1], R=-45){
+								translate([X,Y,3]) rotate([0,0,R]){
+									linear_extrude(layer_height*2) square([4.75,3.6], center =true);
+									linear_extrude(layer_height*4) square([3.6,3.6], center=true);
+								}
+							}
+							for(X=fan_holes*[-1], Y=fan_holes*[-1], R=-45){
+								translate([X,Y,3]) rotate([0,0,R]){
+									linear_extrude(layer_height*2) square([4.75,3.6], center =true);
+									linear_extrude(layer_height*4) square([3.6,3.6], center=true);
+								}
+							}
+						}
+						else{
+							for(X=fan_holes*[-1,1], Y=fan_holes*[-1,1]) translate([X,Y,-1]){
+							cylinder(d1=8, d2=3.6, h=3.5);
+							}
+						}
+					}
+				}
             }
         }
         if(gpio=="yes"){
             // GPIO cutout
             translate([-24.4,10,-1]) linear_extrude(27.2) square([8,52], center=true);
         }
-		if(camera=="yes"){
+		if((camera=="yes"&&fan!="double")||(camera=="yes"&&fan_size==40)){
 			// Camera cutout
-			translate([15,model=="pi3a" ? -11:-15,-1]) linear_extrude(27.2) square([22,3], center=true);
+			translate([15,model=="pi3a" ? -11:-15,-1]) linear_extrude(30) square([22,3], center=true);
 		}
         else{}
     }
@@ -456,7 +469,7 @@ module top(){
 module fan_test(){
     fan_holes=((fan_size/100)*80)/2;
     fan_hole=full_embed=="yes"&&(fan_size==25||fan_size==30) ? (fan_size/100)*90:(fan_size/100)*96;
-    translate([gpio=="yes" ? 4:0,model=="pi3a" ? 14:10,0]){
+    translate([gpio=="yes" ? 3:0,model=="pi3a" ? 14:10,0]){
         difference(){
             union(){
                 translate([0,0,0]) linear_extrude(3) offset(2) offset(-2) square([fan_size/100*110,fan_size/100*110], center=true);

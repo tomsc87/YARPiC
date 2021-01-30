@@ -9,7 +9,7 @@ include <maths/yarpic_model.scad>
 /*[Main]*/
 
 // Moves the ports around for different models.
-model="pi3b"; //[pi3b:Paspberry Pi 1 B+/2 B/3 B/3 B+/Tinker Board,pi4:Paspberry Pi 4 B,pi3a:Paspberry Pi 1A+/3A+]
+model="pi3b"; //[pi3b:Raspberry Pi 1 B+/2 B/3 B/3 B+/Tinker Board,pi4:Raspberry Pi 4 B,pi3a:Raspberry Pi 1A+/3A+]
 
 // Render both top and bottom, or just top or bottom.
 part="both"; // [both:Both,bottom:Bottom,top:Top]
@@ -48,8 +48,8 @@ new_io="no"; //[no:No,yes:Yes]
 // Adds access to GPIO header through lid. This will also offset the fan slightly (if fan is enabled).
 gpio="no"; //[no:No,yes:Yes]
 
-// Adds fan hole on lid.
-fan="no"; //[no:No,yes:Yes]
+// Adds fan hole (or two) on lid. The Double option doesn't work on 40mm fans (yet) or fans larger than 25mm with the "Raspberry Pi 1A+/3A+" model option, and will just default to Single.
+fan="no"; //[no:No,single:Single,double:Double]
 
 // Change fan size. It should work for any size fan (assuming it fits in the case); however, I've only tried it with the sizes that are listed. Input should be in millimetres between "25" and "40".
 fan_size=40; //[25,30,40]

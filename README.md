@@ -5,7 +5,7 @@ Goddammit! Another update for January 2021. While playing around, trying to make
 Here are the changes:
 
 <ul>
-<li>Fixed cd_text fan intersection.</li>
+<li>Fixed dc_text fan intersection.</li>
 <li>Removed leftover code used for internal testing.</li>
 </ul>
 

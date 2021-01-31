@@ -50,15 +50,9 @@ if(dc_text=="yes"){
     else{
         if(part=="both"){
             translate([-50,model=="pi3a" ? -10:0,0]) dc_text();
-            if(logo=="yes"){
-                translate([50,model=="pi3a" ? -10:0,0]) logo();
-            }
         }
         else if(part=="top"){
             translate([0,model=="pi3a" ? -10:0,0]) dc_text();
-        }
-        else if(part=="bottom"&&logo=="yes"){
-            translate([0,model=="pi3a" ? -10:0,0]) logo();
         }
         else{}
     }
@@ -349,7 +343,7 @@ module top(){
                 else{
                     translate([0,model=="pi3a" ? 10:0,2]) linear_extrude(8) offset(3) offset(-3) square([59,model=="pi3a" ? 68:88], center=true);
                 }
-                if(fan!="no"){
+                if(fan!="no"&&dc_text=="no"){
                     translate([gpio=="yes" ? 3:0,model=="pi3a" ? 14:10,0]){
 						// Experimental double fan
 						for(y=fan=="double"&&fan_size!=40&&model!="pi3a"||fan=="double"&&fan_size==25&&model=="pi3a" ? ((fan_size/2)+1)*[1,-1]:0*[1]){
@@ -485,7 +479,7 @@ module fan_test(){
 module dc_text(){
     intersection(){
         translate([model=="pi3a"&&gpio=="yes" ? 4:0,model=="pi3a" ? -14:-30,0]){
-            translate([move_x,move_y,0])text_();
+			translate([move_x,move_y,0])text_();
         }
         top();
     }

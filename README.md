@@ -1,3 +1,16 @@
+[UPDATE: 31/01/2021]
+
+Goddammit! Another update for January 2021. While playing around, trying to make a double fan top for one of my Pis, I noticed that I borked the dc_text intersection in the last update, meaning the grill went through the dc_text (and made rendering dc_text so much slower).
+
+Here are the changes:
+
+<ul>
+<li>Fixed cd_text fan intersection.</li>
+<li>Removed leftover code used for internal testing.</li>
+</ul>
+
+This really is the last update of January 2021... mainly because I probably won't notice any other bugs until tomorrow.
+
 [UPDATE: 30/01/2021]
 
 Okay, I lied. This really will be the final update of January 2021 (and for a while).
